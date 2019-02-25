@@ -26,7 +26,8 @@ const User = db.define('user', {
   },
   googleId: {
     type: Sequelize.STRING
-  }
+  },
+  luckyNum: Sequelize.INTEGER
 })
 
 module.exports = User
