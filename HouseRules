@@ -1,0 +1,56 @@
+
+Working style
+Learning goals
+Feedback style
+Name (Commute)
+Milan: prefers morning, non-verbal review of a new problem, then open problem-solving,
+-- LG: Crypto payments, Really hate front-end but I'd like to learn more (specifically around a template bootstrap / flexbox)
+Kyle: prefers evening/afternoon, non-verbal review of a new problem, then open problem-solving
+-- LG: Front-end design / CSS
+Greg (120 minutes): prefers evening, pair programming, wants to practice front-end, better at back-end, straightforward feedback is best
+-- Prefers ideal leave time 6pm
+-- LG: react/redux structure in complex app
+Matt: prefers morning, non-verbal review of a new problem, then open problem-solving, OCD about finishing each "tier/goal"
+-- LG: Workflow / how to attack a project or building a specific feature (vertical slice)
+Lunch: gym or crank
+
+Daily Norm:
+1. Morning Stand up [~10:30am errday]
+  ** do we need to pair? when and for how long?
+2. Pre-lunch Stand up [12:50pm errday]
+3. EOD Stand up [~6pm errday]
+  ** merge together (what are we merging? will it break anything?)
+  ** be comfortable with previous days' merges before the start of the next day
+  ** 
+
+Structure:
+- What did you accomplish yesterday? 
+- What is the goal fror the next stand up? [who do you need to work with?]
+- Are there any blockers? [who can help you unblock?]
+
+Handle disagreements?
+Consider: specific problem at hand, potential solutions, why one is better or worse // vote as group, tie: fellow
+
+Handle frustration?
+Frank amd frequent feedback.
+
+Ask for help?
+Identify issue areas in code? Identify Error? Google Error?
+StackOverflow. Documentation. Take a walk. Ask for help.
+
+After hours?
+Respect 6pm "checkout" meeting.
+3 Check Ins Pre-Code Review //
+Wednesday: do we need to stay late this Thursday/Friday?
+Friday: do we need to work this weekend? meet in person?
+Monday: do we need to stay late / come early this week?
+
+Possible Saturday meetup (3/2)
+
+Work Environment:
+- Get Prettier Setup
+- Single quotes
+- Semicolons
+- arrow functions
+
+
