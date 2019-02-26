@@ -50,7 +50,7 @@ const User = db.define('user', {
   phone: {
     type: Sequelize.INTERGER,
     validate: {
-      len: 10
+      len: [10]
     }
   },
   imageUrl: {
