@@ -9,5 +9,8 @@ export {Login, Signup} from './auth-form'
 export {AllProducts} from './allProducts'
 export {About} from './about'
 export {Search} from './search'
+export {Profile} from './profile'
+export {Cart} from './cart'
+export {Checkout} from './checkout'
 
 console.log('Hi, it is me, Grace Shopper!')
