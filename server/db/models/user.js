@@ -37,18 +37,24 @@ const User = db.define('user', {
   googleId: {
     type: Sequelize.STRING
   },
-  street: Sequelize.STRING,
-  city: Sequelize.STRING,
-  state: Sequelize.STRING,
+  street: {
+    type: Sequelize.STRING
+  },
+  city: {
+    type: Sequelize.STRING
+  },
+  state: {
+    type: Sequelize.STRING
+  },
   zip: {
     type: Sequelize.INTEGER,
     validate: {
       isInt: true,
-      len: 5
+      len: [5]
     }
   },
   phone: {
-    type: Sequelize.INTERGER,
+    type: Sequelize.INTEGER,
     validate: {
       len: [10]
     }
