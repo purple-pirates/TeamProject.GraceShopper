@@ -6,5 +6,8 @@
 export {default as Navbar} from './navbar'
 export {default as UserHome} from './user-home'
 export {Login, Signup} from './auth-form'
+export {AllProducts} from './allProducts'
+export {About} from './about'
+export {Search} from './search'
 
-console.log("Hi, it is me, Grace Shopper!");
+console.log('Hi, it is me, Grace Shopper!')
