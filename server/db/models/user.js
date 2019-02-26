@@ -1,25 +1,35 @@
+// IMPORTS & MODULES
 const crypto = require('crypto')
 const Sequelize = require('sequelize')
 const db = require('../db')
 
+// USER MODEL
+
 const User = db.define('user', {
+  firstName: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+  lastName: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
   email: {
     type: Sequelize.STRING,
     unique: true,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      isEmail: true
+    }
   },
   password: {
     type: Sequelize.STRING,
-    // Making `.password` act like a func hides it when serializing to JSON.
-    // This is a hack to get around Sequelize's lack of a "private" option.
     get() {
       return () => this.getDataValue('password')
     }
   },
   salt: {
     type: Sequelize.STRING,
-    // Making `.salt` act like a function hides it when serializing to JSON.
-    // This is a hack to get around Sequelize's lack of a "private" option.
     get() {
       return () => this.getDataValue('salt')
     }
@@ -27,21 +37,45 @@ const User = db.define('user', {
   googleId: {
     type: Sequelize.STRING
   },
-  luckyNum: Sequelize.INTEGER
+  street: {
+    type: Sequelize.STRING
+  },
+  city: {
+    type: Sequelize.STRING
+  },
+  state: {
+    type: Sequelize.STRING
+  },
+  zip: {
+    type: Sequelize.INTEGER,
+    validate: {
+      isInt: true,
+      len: [5]
+    }
+  },
+  phone: {
+    type: Sequelize.INTEGER,
+    validate: {
+      len: [10]
+    }
+  },
+  imageUrl: {
+    type: Sequelize.STRING,
+    validate: {
+      isUrl: true
+    },
+    defaultValue: '../../../public/images/defaultUser.png'
+  }
 })
 
-module.exports = User
+// INSTANCE METHODS
 
-/**
- * instanceMethods
- */
 User.prototype.correctPassword = function(candidatePwd) {
   return User.encryptPassword(candidatePwd, this.salt()) === this.password()
 }
 
-/**
- * classMethods
- */
+// CLASS METHODS
+
 User.generateSalt = function() {
   return crypto.randomBytes(16).toString('base64')
 }
@@ -54,9 +88,8 @@ User.encryptPassword = function(plainText, salt) {
     .digest('hex')
 }
 
-/**
- * hooks
- */
+// HOOKS
+
 const setSaltAndPassword = user => {
   if (user.changed('password')) {
     user.salt = User.generateSalt()
@@ -69,3 +102,7 @@ User.beforeUpdate(setSaltAndPassword)
 User.beforeBulkCreate(users => {
   users.forEach(setSaltAndPassword)
 })
+
+// EXPORT
+
+module.exports = User
