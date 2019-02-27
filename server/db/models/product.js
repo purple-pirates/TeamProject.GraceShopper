@@ -10,17 +10,15 @@ const Product = db.define('product', {
     allowNull: false
   },
   price: {
-    type: Sequelize.DECIMAL(10, 2),
+    type: Sequelize.INTEGER, // Stored in cents.
     allowNull: false
   },
   imageUrl: {
     type: Sequelize.STRING,
-    allowNull: false,
-    defaultValue: '../../../public/images/blackHoodie.png'
+    defaultValue: '/images/blackHoodie.png'
   },
   description: {
     type: Sequelize.TEXT,
-    allowNull: false,
     defaultValue: 'Buy this product!'
   },
   size: {
