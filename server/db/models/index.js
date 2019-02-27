@@ -15,9 +15,9 @@ const Reviews = require('./review')
  * instead of: const User = require('../db/models/user')
  */
 
-Reviews.belongsTo(User, {as: 'user'})
-Reviews.belongsTo(Product, {as: 'product'})
-Product.hasMany(Reviews, {as: 'reviews'})
+Reviews.belongsTo(User)
+Reviews.belongsTo(Product)
+Product.hasMany(Reviews)
 
 module.exports = {
   User,
