@@ -1,18 +1,110 @@
 'use strict'
 
 const db = require('../server/db')
-const {User} = require('../server/db/models')
+const {User, Product} = require('../server/db/models')
+
+const users = [
+  {
+    firstName: 'Alice',
+    lastName: 'Wonderland',
+    email: 'alice@email.com',
+    password: 'password'
+  },
+  {
+    firstName: 'Marshall',
+    lastName: 'Mathers',
+    email: 'marshall@email.com',
+    password: 'password'
+  },
+  {
+    firstName: 'Steve',
+    lastName: 'Nojob',
+    email: 'steve@email.com',
+    password: 'password'
+  },
+  {
+    firstName: 'Kanye',
+    lastName: 'East',
+    email: 'kanye@email.com',
+    phone: 1999999999,
+    password: 'password'
+  },
+  {
+    firstName: 'Lady',
+    lastName: 'Haha',
+    email: 'lady@email.com',
+    phone: 1234567890,
+    password: 'password'
+  },
+  {
+    firstName: 'Buy-Ny',
+    lastName: 'The-Stuff-Guy',
+    email: 'buyny@email.com',
+    password: 'password'
+  }
+]
+
+const products = [
+  {
+    name: 'The Black Hoodie',
+    price: 44.95,
+    imageUrl: '',
+    description: 'This is a black hoodie. The best black hoodie ever created.',
+    size: 'L',
+    merchant: 'misfit merch',
+    quantity: 100
+  },
+  {
+    name: 'The Grey Hoodie',
+    price: 40.95,
+    imageUrl: '',
+    description: 'This is a grey hoodie. The best grey hoodie ever created.',
+    size: 'M',
+    merchant: 'misfit merch',
+    quantity: 100
+  },
+  {
+    name: 'The Burgundy Hoodie',
+    price: 42.95,
+    imageUrl: '',
+    description:
+      'This is a burgundy hoodie. The best burgundy hoodie ever created.',
+    size: 'XL',
+    merchant: 'misfit merch',
+    quantity: 100
+  },
+  {
+    name: 'The Red Hoodie',
+    price: 34.95,
+    imageUrl: '',
+    description: 'This is a red hoodie. The best red hoodie ever created.',
+    size: 'XXL',
+    merchant: 'misfit merch',
+    quantity: 100
+  },
+  {
+    name: 'The Navy Hoodie',
+    price: 34.95,
+    imageUrl: '',
+    description: 'This is a navy hoodie. The best navy hoodie ever created.',
+    size: 'S',
+    merchant: 'misfit merch',
+    quantity: 100
+  }
+]
 
 async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
 
-  const users = await Promise.all([
-    User.create({email: 'cody@email.com', password: '123'}),
-    User.create({email: 'murphy@email.com', password: '123'})
-  ])
+  const userData = await Promise.all(users.map(user => User.create(user)))
 
-  console.log(`seeded ${users.length} users`)
+  const productData = await Promise.all(
+    products.map(product => Product.create(product))
+  )
+
+  console.log(`seeded ${userData.length} users`)
+  console.log(`seeded ${productData.length} products`)
   console.log(`seeded successfully`)
 }
 
