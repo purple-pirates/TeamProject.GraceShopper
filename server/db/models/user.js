@@ -5,65 +5,77 @@ const db = require('../db')
 
 // USER MODEL
 
-const User = db.define('user', {
-  firstName: {
-    type: Sequelize.STRING,
-    allowNull: false
-  },
-  lastName: {
-    type: Sequelize.STRING,
-    allowNull: false
-  },
-  email: {
-    type: Sequelize.STRING,
-    unique: true,
-    allowNull: false,
-    validate: {
-      isEmail: true
+const User = db.define(
+  'user',
+  {
+    firstName: {
+      type: Sequelize.STRING,
+      allowNull: false
+    },
+    lastName: {
+      type: Sequelize.STRING,
+      allowNull: false
+    },
+    email: {
+      type: Sequelize.STRING,
+      unique: true,
+      allowNull: false,
+      validate: {
+        isEmail: true
+      }
+    },
+    password: {
+      type: Sequelize.STRING,
+      get() {
+        return () => this.getDataValue('password')
+      }
+    },
+    salt: {
+      type: Sequelize.STRING,
+      get() {
+        return () => this.getDataValue('salt')
+      }
+    },
+    googleId: {
+      type: Sequelize.STRING
+    },
+    street: {
+      type: Sequelize.STRING
+    },
+    city: {
+      type: Sequelize.STRING
+    },
+    state: {
+      type: Sequelize.STRING
+    },
+    zip: {
+      type: Sequelize.STRING
+    },
+    phone: {
+      type: Sequelize.STRING
+    },
+    imageUrl: {
+      type: Sequelize.STRING,
+      defaultValue: '/images/defaultUser.png'
     }
   },
-  password: {
-    type: Sequelize.STRING,
-    get() {
-      return () => this.getDataValue('password')
+  {
+    defaultScope: {
+      attributes: [
+        'id',
+        'firstName',
+        'lastName',
+        'email',
+        'street',
+        'city',
+        'state',
+        'zip',
+        'phone',
+        'imageUrl'
+      ]
     }
-  },
-  salt: {
-    type: Sequelize.STRING,
-    get() {
-      return () => this.getDataValue('salt')
-    }
-  },
-  googleId: {
-    type: Sequelize.STRING
-  },
-  street: {
-    type: Sequelize.STRING
-  },
-  city: {
-    type: Sequelize.STRING
-  },
-  state: {
-    type: Sequelize.STRING
-  },
-  zip: {
-    type: Sequelize.INTEGER,
-    validate: {
-      isInt: true,
-      len: [5]
-    }
-  },
-  phone: {
-    type: Sequelize.INTEGER,
-    validate: {
-      len: [10]
-    }
-  },
-  imageUrl: {
-    type: Sequelize.STRING,
-    defaultValue: '../../../public/images/defaultUser.png'
   }
-})
+)
 
 // INSTANCE METHODS
 
