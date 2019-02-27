@@ -21,7 +21,7 @@ router.get('/', async (req, res, next) => {
 // GET Route for /api/users/:userId
 router.get('/:userId', async (req, res, next) => {
   try {
-    const users = await User.findById(req.params.id, {
+    const users = await User.findById(req.params.userId, {
       attributes: [
         'firstName',
         'lastName',
