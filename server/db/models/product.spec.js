@@ -2,9 +2,9 @@
 
 const {expect} = require('chai')
 const db = require('../index')
-const User = db.model('user')
+const Product = db.model('product')
 
-describe('User model', () => {
+describe('Product model', () => {
   beforeEach(() => {
     return db.sync({force: true})
   })
