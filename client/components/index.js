@@ -12,5 +12,3 @@ export {Search} from './search'
 export {Profile} from './profile'
 export {Cart} from './cart'
 export {Checkout} from './checkout'
-
-console.log('Hi, it is me, Grace Shopper!')
