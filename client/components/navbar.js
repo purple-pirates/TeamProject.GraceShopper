@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
+import Button from 'react-bootstrap/Button'
+import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
   <div>
@@ -11,7 +13,10 @@ const Navbar = ({handleClick, isLoggedIn}) => (
       {isLoggedIn ? (
         <div>
           {/* The navbar will show these links after you log in */}
-          <Link to="/home">Home</Link>
+          {/* <Link to="/home">Home</Link> */}
+          <ButtonToolbar>
+            <Button variant="secondary">Home</Button>
+          </ButtonToolbar>
           <Link to="/allProducts">Products</Link>
           <Link to="/about">About</Link>
           <Link to="/search">Search</Link>
