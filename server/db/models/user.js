@@ -47,21 +47,14 @@ const User = db.define('user', {
     type: Sequelize.STRING
   },
   zip: {
-    type: Sequelize.INTEGER,
-    validate: {
-      isInt: true,
-      len: [5]
-    }
+    type: Sequelize.STRING
   },
   phone: {
-    type: Sequelize.INTEGER,
-    validate: {
-      len: [10]
-    }
+    type: Sequelize.STRING
   },
   imageUrl: {
     type: Sequelize.STRING,
-    defaultValue: '../../../public/images/defaultUser.png'
+    defaultValue: '/images/defaultUser.png'
   }
 })
 

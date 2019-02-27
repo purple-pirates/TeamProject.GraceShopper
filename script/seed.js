@@ -26,14 +26,14 @@ const users = [
     firstName: 'Kanye',
     lastName: 'East',
     email: 'kanye@email.com',
-    phone: 1999999999,
+    phone: '1999999999',
     password: 'password'
   },
   {
     firstName: 'Lady',
     lastName: 'Haha',
     email: 'lady@email.com',
-    phone: 1234567890,
+    phone: '1234567890',
     password: 'password'
   },
   {
