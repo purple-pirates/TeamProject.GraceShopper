@@ -48,7 +48,6 @@ const products = [
   {
     name: 'The Black Hoodie',
     price: 4495,
-    imageUrl: '',
     description: 'This is a black hoodie. The best black hoodie ever created.',
     size: 'L',
     merchant: 'misfit merch',
@@ -57,7 +56,6 @@ const products = [
   {
     name: 'The Grey Hoodie',
     price: 4095,
-    imageUrl: '',
     description: 'This is a grey hoodie. The best grey hoodie ever created.',
     size: 'M',
     merchant: 'misfit merch',
@@ -66,7 +64,6 @@ const products = [
   {
     name: 'The Burgundy Hoodie',
     price: 4295,
-    imageUrl: '',
     description:
       'This is a burgundy hoodie. The best burgundy hoodie ever created.',
     size: 'XL',
@@ -76,7 +73,6 @@ const products = [
   {
     name: 'The Red Hoodie',
     price: 3495,
-    imageUrl: '',
     description: 'This is a red hoodie. The best red hoodie ever created.',
     size: 'XXL',
     merchant: 'misfit merch',
@@ -85,7 +81,6 @@ const products = [
   {
     name: 'The Navy Hoodie',
     price: 3495,
-    imageUrl: '',
     description: 'This is a navy hoodie. The best navy hoodie ever created.',
     size: 'S',
     merchant: 'misfit merch',
