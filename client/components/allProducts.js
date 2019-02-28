@@ -1,22 +1,21 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
-import {getProducts} from '../store/products'
+import {fetchProducts} from '../store/products'
 
 class AllProducts extends Component {
-  // componentDidMount() {
-  //   this.props.getProducts()
-  // }
+  componentDidMount() {
+    this.props.fetchProducts()
+  }
   render() {
-    console.log(this.props)
     const style = {
       height: '180px'
     }
-    const products = this.props
+    console.log('Props')
     //Map over all products array and create SingleProduct page for each
     return (
       <div className="allProducts_container">
-        {products.map(product => {
+        {this.props.allProducts.map(product => {
           return (
             <div key={product.id} className="product">
               <img src={product.imageUrl} style={style} />
@@ -36,7 +35,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  getProducts: () => dispatch(getProducts())
+  fetchProducts: () => dispatch(fetchProducts())
 })
 
 export default withRouter(

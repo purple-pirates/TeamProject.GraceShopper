@@ -9,7 +9,9 @@ const GET_PRODUCTS = 'GET_PRODUCTS'
  * INITIAL STATE
  */
 
-const defaultProducts = []
+const initialState = {
+  allProducts: []
+}
 
 /**
  * ACTION CREATORS
@@ -24,22 +26,24 @@ const getProducts = allProducts => ({
  * THUNK CREATORS
  */
 
-export const allProducts = async dispatch => {
-  try {
-    const products = await axios.get('/api/products')
-    dispatch(getProducts(products.data || defaultProducts))
-  } catch (error) {
-    console.error(error)
+export const fetchProducts = () => {
+  return async dispatch => {
+    try {
+      const products = await axios.get('/api/products')
+      dispatch(getProducts(products.data))
+    } catch (error) {
+      console.error(error)
+    }
   }
 }
 
 /**
  * REDUCER
  */
-export default function(state = defaultProducts, action) {
+export default function(state = initialState, action) {
   switch (action.type) {
     case GET_PRODUCTS:
-      return action.allProducts
+      return {...state, allProducts: action.allProducts}
     default:
       return state
   }
