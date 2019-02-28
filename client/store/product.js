@@ -1,36 +1,30 @@
 import axios from 'axios'
 
-/**
- * ACTION TYPES
- */
-const GET_PRODUCTS = 'GET_PRODUCTS'
-const GET_SINGLE_PRODUCT = 'GET_SINGLE_PRODUCT'
-/**
- * INITIAL STATE
- */
+// ACTION TYPES
+
+export const GET_PRODUCTS = 'GET_PRODUCTS'
+export const GET_SINGLE_PRODUCT = 'GET_SINGLE_PRODUCT'
+
+// INITIAL STATE
 
 const initialState = {
   allProducts: [],
   singleProduct: {}
 }
 
-/**
- * ACTION CREATORS
- */
+// ACTION CREATORS
 
-const getProducts = products => ({
+export const getProducts = products => ({
   type: GET_PRODUCTS,
   payload: products
 })
 
-const getSingleProduct = product => ({
+export const getSingleProduct = product => ({
   type: GET_SINGLE_PRODUCT,
   payload: product
 })
 
-/**
- * THUNK CREATORS
- */
+// THUNK CREATORS
 
 export const fetchProducts = () => async dispatch => {
   try {
@@ -53,9 +47,8 @@ export const fetchSingleProduct = productId => async dispatch => {
   }
 }
 
-/**
- * REDUCER
- */
+// REDUCER
+
 export default function(state = initialState, action) {
   switch (action.type) {
     case GET_PRODUCTS:

@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
-import {fetchProducts, fetchSingleProduct} from '../store/product'
+import {fetchProducts} from '../store/product'
 
 export class AllProducts extends Component {
   componentDidMount() {
@@ -9,7 +9,7 @@ export class AllProducts extends Component {
     this.props.fetchProducts()
   }
   render() {
-    // console.log('HELLOOOOOOOOOOOO', this.props)
+    console.log('HELLOOOOOOOOOOOO', this.props)
     return (
       <div>
         <h1>YOU ARE IN ALL PRODUCTS PAGE</h1>
