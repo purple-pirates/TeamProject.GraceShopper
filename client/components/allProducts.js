@@ -13,9 +13,13 @@ class AllProducts extends Component {
         {this.props.allProducts.map(product => {
           return (
             <div key={product.id} className="product">
-              <div className="product__img">
+              <div>
                 <Link to={`/products/${product.id}`}>
-                  <img src={product.imageUrl} alt="product image" />
+                  <img
+                    src={product.imageUrl}
+                    alt="product image"
+                    id="product_img"
+                  />
                 </Link>
               </div>
               <div>
