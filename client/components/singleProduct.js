@@ -8,10 +8,10 @@ class SelectedProduct extends Component {
   }
 
   render() {
-    console.log('Product: ', this.props.singleProduct)
+    const product = this.props.singleProduct
     return (
       <div>
-        <h1>You are viewing single products</h1>
+        <h1>{product.name}</h1>
       </div>
     )
   }
@@ -19,7 +19,7 @@ class SelectedProduct extends Component {
 
 const mapStateToProps = function(state) {
   return {
-    singleProduct: state.singleProduct
+    singleProduct: state.product.singleProduct
   }
 }
 
