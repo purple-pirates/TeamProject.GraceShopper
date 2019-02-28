@@ -26,14 +26,14 @@ const users = [
     firstName: 'Kanye',
     lastName: 'East',
     email: 'kanye@email.com',
-    phone: 1999999999,
+    phone: '1999999999',
     password: 'password'
   },
   {
     firstName: 'Lady',
     lastName: 'Haha',
     email: 'lady@email.com',
-    phone: 1234567890,
+    phone: '1234567890',
     password: 'password'
   },
   {
@@ -47,7 +47,7 @@ const users = [
 const products = [
   {
     name: 'The Black Hoodie',
-    price: 44.95,
+    price: 4495,
     imageUrl: '',
     description: 'This is a black hoodie. The best black hoodie ever created.',
     size: 'L',
@@ -56,7 +56,7 @@ const products = [
   },
   {
     name: 'The Grey Hoodie',
-    price: 40.95,
+    price: 4095,
     imageUrl: '',
     description: 'This is a grey hoodie. The best grey hoodie ever created.',
     size: 'M',
@@ -65,7 +65,7 @@ const products = [
   },
   {
     name: 'The Burgundy Hoodie',
-    price: 42.95,
+    price: 4295,
     imageUrl: '',
     description:
       'This is a burgundy hoodie. The best burgundy hoodie ever created.',
@@ -75,7 +75,7 @@ const products = [
   },
   {
     name: 'The Red Hoodie',
-    price: 34.95,
+    price: 3495,
     imageUrl: '',
     description: 'This is a red hoodie. The best red hoodie ever created.',
     size: 'XXL',
@@ -84,7 +84,7 @@ const products = [
   },
   {
     name: 'The Navy Hoodie',
-    price: 34.95,
+    price: 3495,
     imageUrl: '',
     description: 'This is a navy hoodie. The best navy hoodie ever created.',
     size: 'S',

@@ -10,11 +10,9 @@ export class Search extends Component {
     this.handleChange = this.handleChange.bind(this)
   }
   handleSubmit(evt) {
-    // console.log('changing..', evt.target.value)
     evt.preventDefault()
   }
   handleChange(evt) {
-    console.log('changing..', evt.target.value)
     this.setState({searchTerm: evt.target.value})
   }
   render() {
