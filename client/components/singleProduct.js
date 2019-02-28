@@ -1,14 +1,25 @@
 import React, {Component} from 'react'
-import {fetchSingleProduct} from '../store/product'
-import {connect} from 'react-redux'
+import axios from 'axios'
+// import {fetchSingleProduct} from '../store/product'
+// import {connect} from 'react-redux'
 
-export class SingleProduct extends Component {
-  componentDidMount() {
-    const productId = 1 //this.props.match.params.productId
-    this.props.fetchSingleProduct(productId)
+export default class SingleProduct extends Component {
+  constructor() {
+    super()
+    this.state = {
+      currentProduct: {}
+    }
+  }
+
+  async componentDidMount() {
+    const productId = this.props.match.params.productId
+    const selectedProduct = await axios.get(`/api/products/${productId}`)
+    this.setState({currentProduct: selectedProduct.data})
   }
 
   render() {
+    const product = this.state.currentProduct
+    console.log(product)
     return (
       <div>
         <h1>You are viewing single products</h1>
@@ -16,22 +27,3 @@ export class SingleProduct extends Component {
     )
   }
 }
-
-const mapStateToProps = state => ({
-  singleProduct: state.product.singleProduct
-})
-
-const mapDispatchToProps = dispatch => ({
-  fetchSingleProduct: productId => dispatch(fetchSingleProduct(productId))
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(SingleProduct)
-
-// <div>
-//   {this.props.singleProduct.name.length < 1 ? null : (
-//     <div>
-//       <h1>Single Product</h1>
-//       <p>{this.props.singleProduct.name}</p>
-//     </div>
-//   )}
-// </div>
