@@ -51,7 +51,7 @@ export default function(state = initialState, action) {
     case GET_PRODUCTS:
       return {...state, allProducts: action.payload}
     case GET_SINGLE_PRODUCT:
-      return action.payload
+      return {...state, singleProduct: action.payload}
     default:
       return state
   }
