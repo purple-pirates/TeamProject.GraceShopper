@@ -9,15 +9,15 @@ const GET_PRODUCTS = 'GET_PRODUCTS'
  * INITIAL STATE
  */
 
-const defaultProducts = {}
+const defaultProducts = []
 
 /**
  * ACTION CREATORS
  */
 
-const getProducts = products => ({
+const getProducts = allProducts => ({
   type: GET_PRODUCTS,
-  products
+  allProducts
 })
 
 /**
@@ -39,7 +39,7 @@ export const allProducts = async dispatch => {
 export default function(state = defaultProducts, action) {
   switch (action.type) {
     case GET_PRODUCTS:
-      return action.products
+      return action.allProducts
     default:
       return state
   }
