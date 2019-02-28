@@ -21,8 +21,14 @@ form div {
 }
 
 .allProducts_container {
-  display: flexbox;
+  display: flex;
+  /* direction: row; */
 }
 
 .product {
+  direction: column;
+}
+
+.product__img {
+  width: 40%;
 }
