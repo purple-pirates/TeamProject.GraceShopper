@@ -18,9 +18,9 @@ const initialState = {
  * ACTION CREATORS
  */
 
-const getProducts = allProducts => ({
+const getProducts = products => ({
   type: GET_PRODUCTS,
-  allProducts
+  payload: products
 })
 
 const getSingleProduct = product => ({
@@ -32,23 +32,22 @@ const getSingleProduct = product => ({
  * THUNK CREATORS
  */
 
-export const fetchProducts = () => {
-  return async dispatch => {
-    try {
-      const products = await axios.get('/api/products')
-      dispatch(getProducts(products.data))
-    } catch (error) {
-      console.error(error)
-    }
+export const fetchProducts = () => async dispatch => {
+  try {
+    const {data} = await axios.get('/api/products')
+    console.log('DATA FROM FETCH PRODUCTS IS: ', data)
+    dispatch(getProducts(data))
+  } catch (error) {
+    console.error(error)
   }
 }
 
 export const fetchSingleProduct = productId => async dispatch => {
   try {
-    console.log('here')
+    console.log('IN FETCHSINGLE PRODUCT')
     const {data} = await axios.get(`/api/products/${productId}`)
     console.log('this is the data', data)
-    // dispatch(getSingleProduct(data))
+    dispatch(getSingleProduct(data))
   } catch (error) {
     console.error(error)
   }
@@ -60,7 +59,7 @@ export const fetchSingleProduct = productId => async dispatch => {
 export default function(state = initialState, action) {
   switch (action.type) {
     case GET_PRODUCTS:
-      return {...state, allProducts: action.allProducts}
+      return {...state, allProducts: action.payload}
     case GET_SINGLE_PRODUCT:
       return {...state, singleProduct: action.payload}
     default:

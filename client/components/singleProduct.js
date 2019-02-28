@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {fetchSingleProduct} from '../store/products'
+import {fetchSingleProduct} from '../store/product'
 import {connect} from 'react-redux'
 
 export class SingleProduct extends Component {
@@ -24,7 +24,7 @@ export class SingleProduct extends Component {
 }
 
 const mapState = state => ({
-  singleProduct: state.products.singleProduct
+  singleProduct: state.product.singleProduct
 })
 
 const mapDispatch = dispatch => ({
