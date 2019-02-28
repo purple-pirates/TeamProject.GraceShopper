@@ -9,6 +9,7 @@ const db = new Sequelize(
     logging: false
   }
 )
+console.log('Seeding database: ', databaseName)
 module.exports = db
 
 // This is a global Mocha hook used for resource cleanup.
