@@ -8,6 +8,7 @@ class AllProducts extends Component {
     this.props.fetchProducts()
   }
   render() {
+    console.log('Rendering all products!')
     return (
       <div className="allProducts_container">
         {this.props.allProducts.map(product => {

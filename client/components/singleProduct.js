@@ -7,6 +7,7 @@ class SingleProduct extends Component {
   }
 
   render() {
+    console.log('Rendering single product!')
     const product = this.state.singleProduct
     console.log(product)
     return (
@@ -24,9 +25,10 @@ const mapStateToProps = function(state, props) {
 }
 
 const mapDispatchToProps = function(dispatch, props) {
+  const productId = props.match.params.productId
   return {
     fetchSingleProduct() {
-      dispatch(fetchSingleProduct(props.match.params.productId))
+      dispatch(fetchSingleProduct(productId))
     }
   }
 }
