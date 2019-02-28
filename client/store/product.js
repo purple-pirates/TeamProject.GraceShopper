@@ -2,8 +2,8 @@ import axios from 'axios'
 
 // ACTION TYPES
 
-export const GET_PRODUCTS = 'GET_PRODUCTS'
-export const GET_SINGLE_PRODUCT = 'GET_SINGLE_PRODUCT'
+const GET_PRODUCTS = 'GET_PRODUCTS'
+const GET_SINGLE_PRODUCT = 'GET_SINGLE_PRODUCT'
 
 // INITIAL STATE
 
@@ -14,12 +14,12 @@ const initialState = {
 
 // ACTION CREATORS
 
-export const getProducts = products => ({
+const getProducts = products => ({
   type: GET_PRODUCTS,
   payload: products
 })
 
-export const getSingleProduct = product => ({
+const getSingleProduct = product => ({
   type: GET_SINGLE_PRODUCT,
   payload: product
 })
@@ -29,7 +29,6 @@ export const getSingleProduct = product => ({
 export const fetchProducts = () => async dispatch => {
   try {
     const {data} = await axios.get('/api/products')
-    console.log('DATA FROM FETCH PRODUCTS IS: ', data)
     dispatch(getProducts(data))
   } catch (error) {
     console.error(error)
@@ -38,9 +37,7 @@ export const fetchProducts = () => async dispatch => {
 
 export const fetchSingleProduct = productId => async dispatch => {
   try {
-    console.log('IN FETCHSINGLE PRODUCT')
     const {data} = await axios.get(`/api/products/${productId}`)
-    console.log('this is the data', data)
     dispatch(getSingleProduct(data))
   } catch (error) {
     console.error(error)

@@ -1,5 +1,5 @@
 import React from 'react'
 
 export function Profile() {
-  return <div>Profile for XXX</div>
+  return <div>Profile for User</div>
 }

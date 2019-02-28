@@ -3,18 +3,12 @@ import {fetchSingleProduct} from '../store/product'
 import {connect} from 'react-redux'
 
 export class SingleProduct extends Component {
-  constructor(props) {
-    super(props)
-  }
-
   componentDidMount() {
     const productId = 1 //this.props.match.params.productId
-    console.log('this is productID', productId)
     this.props.fetchSingleProduct(productId)
   }
 
   render() {
-    console.log('in render')
     return (
       <div>
         <h1>You are viewing single products</h1>
@@ -23,15 +17,15 @@ export class SingleProduct extends Component {
   }
 }
 
-const mapState = state => ({
+const mapStateToProps = state => ({
   singleProduct: state.product.singleProduct
 })
 
-const mapDispatch = dispatch => ({
+const mapDispatchToProps = dispatch => ({
   fetchSingleProduct: productId => dispatch(fetchSingleProduct(productId))
 })
 
-export default connect(mapState, mapDispatch)(SingleProduct)
+export default connect(mapStateToProps, mapDispatchToProps)(SingleProduct)
 
 // <div>
 //   {this.props.singleProduct.name.length < 1 ? null : (

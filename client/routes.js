@@ -6,7 +6,7 @@ import {
   Login,
   Signup,
   UserHome,
-  AllProducts,
+  AllProduct,
   About,
   Search,
   Profile,
@@ -32,7 +32,7 @@ class Routes extends Component {
         {/* Routes placed here are available to all visitors */}
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
-        <Route path="/allProducts" component={AllProducts} />
+        <Route path="/allProducts" component={AllProduct} />
 
         <Route path="/singleProduct/1" component={SingleProduct} />
         <Route path="/about" component={About} />
@@ -48,7 +48,7 @@ class Routes extends Component {
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
-        <Route component={AllProducts} />
+        <Route component={AllProduct} />
       </Switch>
     )
   }
