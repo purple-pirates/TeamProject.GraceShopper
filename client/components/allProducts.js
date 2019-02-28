@@ -8,20 +8,13 @@ class AllProducts extends Component {
     this.props.fetchProducts()
   }
   render() {
-    // const style = {
-    //   height: '180px',
-    //   width: '200px',
-    //   backgroundColor: 'orange'
-    // }
-
     return (
       <div className="allProducts_container">
         {this.props.allProducts.map(product => {
-          console.log(product.imageUrl)
           return (
             <div key={product.id} className="product">
               <div className="product__img">
-                <Link to="singleProduct">
+                <Link to={`/products/${product.id}`}>
                   <img src={product.imageUrl} alt="product image" />
                 </Link>
               </div>
