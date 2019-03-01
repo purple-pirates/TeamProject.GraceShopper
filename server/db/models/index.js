@@ -2,6 +2,7 @@ const User = require('./user')
 const Product = require('./product')
 const Cart = require('./cart')
 const Reviews = require('./review')
+
 // const db = require('../db')
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -22,14 +23,10 @@ Reviews.belongsTo(Product)
 Product.hasMany(Reviews)
 
 User.belongsToMany(Product, {
-  as: 'Purchases',
-  through: Cart,
-  foreignKey: 'userId'
+  through: Cart
 })
 Product.belongsToMany(User, {
-  as: 'Customer',
-  through: Cart,
-  foreignKey: 'productId'
+  through: Cart
 })
 
 // //Add additional fields here

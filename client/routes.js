@@ -10,7 +10,7 @@ import {
   About,
   Search,
   userProfile,
-  Cart,
+  UserCart,
   Checkout,
   SingleProduct
 } from './components'
@@ -36,7 +36,7 @@ class Routes extends Component {
         <Route path="/products/:productId" component={SingleProduct} />
         <Route path="/about" component={About} />
         <Route path="/search" component={Search} />
-        <Route path="/cart" component={Cart} />
+        <Route path="/cart" component={UserCart} />
         <Route path="/checkout" component={Checkout} />
 
         {isLoggedIn && (

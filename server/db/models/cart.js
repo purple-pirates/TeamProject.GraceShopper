@@ -5,8 +5,11 @@ const db = require('../db')
 // CART MODEL
 
 const Cart = db.define('cart', {
-  testCol: {
-    type: Sequelize.STRING
+  quantity: {
+    type: Sequelize.SMALLINT
+  },
+  size: {
+    type: Sequelize.ENUM('S', 'M', 'L', 'XL', 'XXL')
   }
 })
 
