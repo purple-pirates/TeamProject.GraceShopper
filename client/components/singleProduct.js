@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {fetchSingleProduct} from '../store'
+import {fetchSingleProduct, addProduct} from '../store'
 class SelectedProduct extends Component {
   constructor() {
     super()
@@ -24,12 +24,14 @@ class SelectedProduct extends Component {
     alert('your order has been submitted!')
 
     e.preventDefault()
+    const productId = this.props.match.params.productId
     const orderInfo = {
       id: this.props.singleProduct.id,
       size: this.state.size,
       quantity: this.state.quantity
     }
     // PLACEHOLDER: to dispatch an action that will use a Thunk that makes a post request to our "cart model"
+    this.props.addProduct(orderInfo, productId)
   }
 
   componentDidMount() {
@@ -39,7 +41,6 @@ class SelectedProduct extends Component {
 
   render() {
     const product = this.props.singleProduct
-    console.log(product)
     return (
       <div id="single_product_container">
         <div id="single_product_subcontainer">
@@ -103,11 +104,11 @@ const mapStateToProps = function(state) {
   }
 }
 
-const mapDispatchToProps = function(dispatch) {
-  return {
-    fetchSingleProduct: productId => dispatch(fetchSingleProduct(productId))
-  }
-}
+const mapDispatchToProps = dispatch => ({
+  fetchSingleProduct: productId => dispatch(fetchSingleProduct(productId)),
+  addProduct: (orderInfo, productId) =>
+    dispatch(addProduct(orderInfo, productId))
+})
 
 export const SingleProduct = connect(mapStateToProps, mapDispatchToProps)(
   SelectedProduct
