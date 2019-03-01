@@ -24,7 +24,7 @@ class AllProducts extends Component {
               </div>
               <div>
                 <p>{product.name}</p>
-                <p>{product.price}</p>
+                <p>${product.price / 100}</p>
               </div>
             </div>
           )
