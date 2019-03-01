@@ -16,12 +16,12 @@ install:
 before_script:
   - psql -c 'create database "misfitmerch-test";' -U postgres # remember to change this name if you change it elsewhere (e.g. package.json)
 
-# before_deploy:
-#   - npm run build-client # make the bundle
-#   - rm -rf node_modules # omit from the tarball, since we skip cleanup
-# deploy:
-#   skip_cleanup: true # prevents travis from deleting the build
-#   provider: heroku
-#   app: YOUR-HEROKU-APP-NAME-HERE # see README
-#   api_key:
-#     secure: YOUR-***ENCRYPTED***-API-KEY-HERE # see README
+before_deploy:
+  - npm run build-client # make the bundle
+  - rm -rf node_modules # omit from the tarball, since we skip cleanup
+deploy:
+  skip_cleanup: true # prevents travis from deleting the build
+  provider: heroku
+  app: misfitmerch # see README
+  api_key:
+    secure: 2dtVtkk6qaWaWYx/Af0fkqMAZX48vwS6+P83QS4PTT8bSYNQfS1DkTYpXi6qJUW3ObFdhCwuRRp4Xj1O8c9v+CDfKwCGeDW78U+TubiikS0NqokG4+kBjY318VGjuRMnC5I4ago3wHjTtFdBjFYOCSbrGlYg4OR2cd+ya+Nx4dFwXEHrEbLS/sUI92T/pO/6v/UC52uNGCXwWhfT2RLPzCBkeR39Fwvn1hQMQ1Pg1VB9Uf4NS/5RU6nIH9ZqhJOZG3M5lK3Z5OQS8KlDwAGGT87YI+zGQmir8S8j6gOHiHQSKc5Atc4pCDpsKNgvAMwhGb/w+hu4e4gnLtk65JlWlL7C/PeK1FUMkGRxQujncAAl7v0LRUyTSPkoJG7MqLDj/MhH4lsC9altuZXHJ9Um3cxDWxTgTIjPmZ1BUY8qQfYMKKUkC2TK/dI0ton6d1BtxRJkwisNLEwskkOmjm51zK0RTtR6xl33iWdUdqkVMdEs3ztwgSlAWQnVwT6r4v9Pzy3BsuzpA+7IDsNhhvBjiiPrIMw7siGbeONoIK5mrPsOoLM1EkTgUPIkLViUifdebLJbNJ5vw6ln/QFfxa2y7yfUOrTHfnYxyoQS+jZGZpfPmvglPBP0r+UVRheHIdlM5rXvOgX+Vi0SZyaS+bKABcaX/9yGAGdOlLNACp3kvzw= # see README
