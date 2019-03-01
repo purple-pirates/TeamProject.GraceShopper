@@ -60,3 +60,8 @@ form div {
   width: 35px;
   border: 1px solid #555;
 }
+
+#add_single_product {
+  border: 1px solid #555;
+  padding: 20px;
+}
