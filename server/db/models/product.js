@@ -40,12 +40,6 @@ const Product = db.define(
   }
 )
 
-// PROTOTYPE METHOD
-
-Product.prototype.priceInDollars = price => {
-  return `$${price / 100}`
-}
-
 // EXPORT
 
 module.exports = Product
