@@ -17,8 +17,8 @@ function Profile(props) {
 
 const mapStateToProps = state => {
   return {
-    userInfo: state.user.singleUser
+    userInfo: state.user
   }
 }
 
-export default connect(mapStateToProps)(Profile)
+export const userProfile = connect(mapStateToProps)(Profile)

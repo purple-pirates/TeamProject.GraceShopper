@@ -9,7 +9,7 @@ import {
   AllProduct,
   About,
   Search,
-  Profile,
+  userProfile,
   Cart,
   Checkout,
   SingleProduct
@@ -43,7 +43,7 @@ class Routes extends Component {
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route path="/home" component={UserHome} />
-            <Route path="/profile" component={Profile} />
+            <Route path="/profile" component={userProfile} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
