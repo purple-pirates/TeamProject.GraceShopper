@@ -13,7 +13,10 @@ const Product = db.define(
     },
     price: {
       type: Sequelize.INTEGER, // Stored in cents.
-      allowNull: false
+      allowNull: false,
+      get() {
+        return this.priceInDollars(this.getDataValue('price'))
+      }
     },
     imageUrl: {
       type: Sequelize.STRING,
