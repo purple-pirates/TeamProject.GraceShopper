@@ -9,9 +9,13 @@ class SelectedProduct extends Component {
 
   render() {
     const product = this.props.singleProduct
+    console.log(product)
     return (
       <div>
         <h1>{product.name}</h1>
+        <h2>{product.price}</h2>
+        <h3>{product.description}</h3>
+        <img src={product.imageUrl} alt="product image" id="product_img" />
       </div>
     )
   }
