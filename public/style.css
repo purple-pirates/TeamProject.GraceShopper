@@ -65,3 +65,23 @@ form div {
   border: 1px solid #555;
   padding: 20px;
 }
+
+/* OAUTH BUTTON */
+.btn {
+  border: none;
+  transition: all 0.75s ease;
+  outline: none;
+}
+.rounded {
+  border-radius: 3px;
+}
+.btn.bg-red:hover {
+  background-color: #ad000f;
+}
+.p1 {
+  padding: 1em;
+}
+.white {
+  color: white;
+  background-color: black;
+}
