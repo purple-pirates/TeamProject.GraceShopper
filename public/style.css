@@ -33,3 +33,35 @@ form div {
   width: 100%;
   height: 100%;
 }
+
+#single_product_img {
+  width: 50%;
+  height: 50%;
+}
+
+#single_product_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+#single_product_subcontainer {
+  display: flex;
+}
+
+#single_product_textcontainer {
+  display: flex;
+  flex-direction: column;
+}
+
+#quantity {
+  padding: 5px;
+  width: 35px;
+  border: 1px solid #555;
+}
+
+#add_single_product {
+  border: 1px solid #555;
+  padding: 20px;
+}
