@@ -23,7 +23,7 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-// POST: api/cart
+// POST: api/cart/:productId
 router.post('/:productId', async (req, res, next) => {
   try {
     const userId = req.session.passport.user

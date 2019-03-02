@@ -9,7 +9,12 @@ function Profile(props) {
         <h1>
           {props.userInfo.firstName} {props.userInfo.lastName}
         </h1>
-        <h4>Email: {props.userInfo.email}</h4>
+        <h4>Email: {props.userInfo.email || 'N/A'}</h4>
+        <h4>Street: {props.userInfo.street || 'N/A'}</h4>
+        <h4>City: {props.userInfo.city || 'N/A'}</h4>
+        <h4>State: {props.userInfo.state || 'N/A'}</h4>
+        <h4>Zip: {props.userInfo.zip || 'N/A'}</h4>
+        <h4>Phone: {props.userInfo.phone || 'N/A'}</h4>
       </div>
     </div>
   )
