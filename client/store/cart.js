@@ -7,9 +7,9 @@ const initialState = {
   cart: {}
 }
 
-const getCartItems = payload => ({
+const getCartItems = cartItems => ({
   type: GET_CART_ITEMS,
-  cartItems: payload
+  payload: cartItems
 })
 
 export const fetchCartItems = () => async dispatch => {
@@ -21,7 +21,7 @@ export const fetchCartItems = () => async dispatch => {
 export default (state = initialState, action) => {
   switch (action.type) {
     case GET_CART_ITEMS:
-      return {cartItems: action.cartItems}
+      return {cartItems: action.payload}
     default:
       return state
   }

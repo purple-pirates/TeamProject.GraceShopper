@@ -10,16 +10,13 @@ export class Cart extends Component {
   }
 
   render() {
-    console.log(this.props.cartItems)
+    console.log('cartItems', this.props.cartItems)
     return (
       <div>
         {this.props.cartItems.length < 1 ? (
           <h1>Your cart is empty</h1>
         ) : (
           this.props.cartItems.map((item, idx) => {
-            {
-              // console.log(item)
-            }
             return (
               <div key={idx}>
                 {/* <img src={item.productId.imageUrl} /> */}
