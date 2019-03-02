@@ -12,11 +12,25 @@ export class Cart extends Component {
   render() {
     return (
       <div>
-        <p>This is the caart</p>
         {this.props.cartItems.map((item, idx) => {
+          {
+            // console.log(item)
+          }
           return (
             <div key={idx}>
-              <p>{item.quantity}</p>
+              {/* <img src={item.productId.imageUrl} /> */}
+              <span>
+                <b>Name: </b>
+                {item.name}
+              </span>
+              {'  '}
+              <span>
+                <b>Quantity: </b> {item.quantity}
+              </span>
+              {'  '}
+              <span>
+                <b>Size: </b> {item.size}
+              </span>
             </div>
           )
         })}

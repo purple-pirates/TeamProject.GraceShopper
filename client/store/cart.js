@@ -14,6 +14,7 @@ const getCartItems = payload => ({
 
 export const fetchCartItems = () => async dispatch => {
   const {data} = await axios.get('/api/cart')
+
   dispatch(getCartItems(data))
 }
 
