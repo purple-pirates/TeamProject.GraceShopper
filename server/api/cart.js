@@ -29,9 +29,23 @@ router.post('/:productId', async (req, res, next) => {
     const userId = req.session.passport.user
     const productId = req.params.productId
     console.log('we in here', req.body, userId, productId)
-    let body = {...req.body, userId: userId, productId: productId}
-    await Cart.create(body)
-    // res.status(204).send('Added to cart')
+    let body = {
+      size: req.body.size,
+      quantity: req.body.quantity,
+      name: req.body.name,
+      userId: userId,
+      productId: productId
+    }
+    const [instance, wasCreated] = await Cart.findOrCreate({
+      where: {
+        name: req.body.name,
+        size: req.body.size,
+        quantity: req.body.quantity,
+        userId: userId,
+        productId: productId
+      }
+    })
+    res.status(204).send('Added to cart')
   } catch (error) {
     next(error)
   }
