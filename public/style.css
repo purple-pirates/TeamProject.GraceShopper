@@ -78,10 +78,12 @@ form div {
 .btn.bg-red:hover {
   background-color: #ad000f;
 }
+.bg-red {
+  background-color: #cf000f;
+}
 .p1 {
   padding: 1em;
 }
 .white {
   color: white;
-  background-color: black;
 }
