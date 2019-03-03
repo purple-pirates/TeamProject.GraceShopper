@@ -6,11 +6,9 @@ import {fetchCartItems} from '../store'
 export class Cart extends Component {
   componentDidMount() {
     this.props.fetchCartItems()
-    // console.log('in cart mount', this.props.cartItems)
   }
 
   render() {
-    console.log('cartItems', this.props.cartItems)
     return (
       <div>
         {this.props.cartItems.length < 1 ? (
