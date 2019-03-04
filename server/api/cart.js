@@ -29,7 +29,6 @@ router.post('/:productId', async (req, res, next) => {
   try {
     const productId = req.params.productId
     if (req.session.passport === undefined) {
-      //if the user is not logged in
       if (req.session.cartItems === undefined) {
         req.session.cartItems = [req.body]
       } else if (req.session.cartItems) {
@@ -52,7 +51,6 @@ router.post('/:productId', async (req, res, next) => {
       }
       res.status(204).send(req.session.cartItems)
     } else {
-      //If the user is logged in
       const userId = req.session.passport.user
       const cartItem = await Cart.findAll({
         where: {
@@ -103,39 +101,38 @@ router.post('/:productId', async (req, res, next) => {
 
 router.put('/:productId', async (req, res, next) => {
   const change = req.body.change === 'up' ? 1 : -1
+  await Cart.update(
+    {quantity: req.body.quantity + change},
+    {
+      where: {
+        userId: req.body.userId,
+        productId: req.params.productId
+      }
+    }
+  )
 
-  if (req.session.passport === undefined) {
-    await Cart.update(
-      {quantity: req.session.cartItems.quantity + change},
-      {
-        where: {
-          userId: req.session.passport.user,
-          productId: req.params.productId
-        }
-      }
-    )
-  } else {
-    await Cart.update(
-      {quantity: req.body.quantity + change},
-      {
-        where: {
-          userId: req.body.userId, //req.session.passport.user,
-          productId: req.params.productId
-        }
-      }
-    )
-  }
   res.end()
 })
 
 router.delete('/:productId', async (req, res, next) => {
-  await Cart.destroy({
-    where: {
-      // userId: req.session.passport.user,
-      productId: req.params.productId
+  if (req.session.passport === undefined) {
+    const cartItem = req.session.cartItems
+    for (let x = 0; x < cartItem.length; x++) {
+      if (cartItem[x].name === req.body.name) {
+        cartItem.splice(x, 1)
+        break
+      }
     }
-  })
-  res.end()
+    res.send(cartItem)
+    console.log('after remove', cartItem)
+  } else {
+    await Cart.destroy({
+      where: {
+        productId: req.params.productId
+      }
+    })
+    res.end()
+  }
 })
 
 module.exports = router

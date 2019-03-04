@@ -39,7 +39,7 @@ export const putCartItem = (item, change) => async dispatch => {
 }
 
 export const removeCartItem = itemInfo => async dispatch => {
-  await axios.delete(`/api/cart/${itemInfo.productId}`)
+  await axios.delete(`/api/cart/${itemInfo.productId}`, {data: itemInfo})
   dispatch(deleteCartItem(itemInfo))
 }
 

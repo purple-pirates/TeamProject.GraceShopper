@@ -9,14 +9,12 @@ export class Cart extends Component {
   }
 
   render() {
-    console.log('PROPS CART ITEMS', this.props.cartItems)
     return (
       <div>
         {this.props.cartItems.length < 1 ? (
           <h1>Your cart is empty</h1>
         ) : (
           this.props.cartItems.map((item, idx) => {
-            console.log('THIS IS THE ITEM', item)
             return (
               <div key={idx}>
                 <span>
@@ -75,4 +73,6 @@ const mapDispatchToProps = dispatch => ({
   putCartItem: (item, change) => dispatch(putCartItem(item, change))
 })
 
-export const UserCart = connect(mapStateToProps, mapDispatchToProps)(Cart)
+export const UserCart = withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(Cart)
+)
