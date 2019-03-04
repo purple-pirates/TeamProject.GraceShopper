@@ -10,7 +10,7 @@ import {
   About,
   Search,
   userProfile,
-  Cart,
+  UserCart,
   Checkout,
   SingleProduct
 } from './components'
