@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-
-import {fetchCartItems} from '../store'
+import {withRouter} from 'react-router-dom'
+import {fetchCartItems, removeCartItem, putCartItem} from '../store'
 
 export class Cart extends Component {
   componentDidMount() {
@@ -9,6 +9,7 @@ export class Cart extends Component {
   }
 
   render() {
+    console.log(this.props.cartItems)
     return (
       <div>
         {this.props.cartItems.length < 1 ? (
@@ -23,13 +24,34 @@ export class Cart extends Component {
                   {item.name}
                 </span>
                 {'  '}
+
                 <span>
-                  <b>Quantity: </b> {item.quantity}
+                  <b>Quantity: </b>{' '}
+                  <button
+                    type="button"
+                    onClick={() => this.props.putCartItem(item, 'up')}
+                  >
+                    -
+                  </button>
+                  {item.quantity}
+                  <button
+                    type="button"
+                    onClick={() => this.props.putCartItem(item, 'down')}
+                  >
+                    +
+                  </button>
                 </span>
+
                 {'  '}
                 <span>
                   <b>Size: </b> {item.size}
                 </span>
+                <button
+                  type="button"
+                  onClick={() => this.props.removeCartItem(item)}
+                >
+                  Delete Item
+                </button>
               </div>
             )
           })
@@ -48,7 +70,9 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  fetchCartItems: () => dispatch(fetchCartItems())
+  fetchCartItems: () => dispatch(fetchCartItems()),
+  removeCartItem: item => dispatch(removeCartItem(item)),
+  putCartItem: (item, change) => dispatch(putCartItem(item, change))
 })
 
 export const UserCart = connect(mapStateToProps, mapDispatchToProps)(Cart)

@@ -67,10 +67,7 @@ router.post('/:productId', async (req, res, next) => {
       let newQuantity
 
       for (let x = 0; x < cartItem.length; x++) {
-        if (
-          cartItem[x].dataValues.productId === req.body.id &&
-          cartItem[x].dataValues.size === req.body.size
-        ) {
+        if (cartItem[x].dataValues.productId === req.body.id) {
           found = true
           newQuantity =
             cartItem[x].dataValues.quantity + Number(req.body.quantity)
@@ -100,6 +97,29 @@ router.post('/:productId', async (req, res, next) => {
   } catch (error) {
     next(error)
   }
+})
+
+router.put('/:productId', async (req, res, next) => {
+  await Cart.update(
+    {quantity: 3},
+    {
+      where: {
+        userId: req.session.passport.user,
+        productId: req.params.productId
+      }
+    }
+  )
+  res.end()
+})
+
+router.delete('/:productId', async (req, res, next) => {
+  await Cart.destroy({
+    where: {
+      userId: req.session.passport.user,
+      productId: req.params.productId
+    }
+  })
+  res.end()
 })
 
 module.exports = router
