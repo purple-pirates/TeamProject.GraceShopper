@@ -100,24 +100,38 @@ router.post('/:productId', async (req, res, next) => {
 })
 
 router.put('/:productId', async (req, res, next) => {
-  const change = req.body.change === 'up' ? 1 : -1
-  await Cart.update(
-    {quantity: req.body.quantity + change},
-    {
-      where: {
-        userId: req.body.userId,
-        productId: req.params.productId
+  try {
+    const change = req.body.change === 'up' ? 1 : -1
+    if (req.session.passport === undefined) {
+      const cartItem = req.session.cartItems
+      for (let x = 0; x < cartItem.length; x++) {
+        if (cartItem[x].name === req.body.name) {
+          cartItem[x].quantity = Number(cartItem[x].quantity) + change
+          break
+        }
       }
+      res.send({cartItem})
+    } else {
+      await Cart.update(
+        {quantity: req.body.quantity + change},
+        {
+          where: {
+            userId: req.body.userId,
+            productId: req.params.productId
+          }
+        }
+      )
+      res.send({user: req.session.passport})
     }
-  )
-
-  res.end()
+  } catch (e) {
+    next(e)
+  }
 })
 
 router.delete('/:productId', async (req, res, next) => {
-  const cartItem = req.session.cartItems
   try {
     if (req.session.passport === undefined) {
+      const cartItem = req.session.cartItems
       for (let x = 0; x < cartItem.length; x++) {
         if (cartItem[x].name === req.body.name) {
           cartItem.splice(x, 1)

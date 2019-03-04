@@ -34,8 +34,11 @@ export const putCartItem = (item, change) => async dispatch => {
     ...item,
     change
   }
-  await axios.put(`/api/cart/${item.productId}`, body)
-  dispatch(updateCartItems(item, change))
+  const {data} = await axios.put(`/api/cart/${item.productId}`, body)
+  console.log('update data', data)
+  data.user
+    ? dispatch(updateCartItems(item, change))
+    : dispatch(updateCartItems(data, change))
 }
 
 export const removeCartItem = itemInfo => async dispatch => {
@@ -51,6 +54,19 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case GET_CART_ITEMS:
       return {cartItems: action.payload}
+    case UPDATE_CART_ITEM:
+      return !action.payload.cartItem
+        ? {
+            cartItems: state.cartItems.map(item => {
+              const change = action.change === 'up' ? 1 : -1
+              item.productId === action.payload.productId &&
+                (item.quantity = action.payload.quantity + change)
+              return item
+            })
+          }
+        : {
+            cartItems: action.payload.cartItem
+          }
     case DELETE_CART_ITEM:
       return !action.payload.cartItem
         ? {
@@ -61,17 +77,7 @@ export default (state = initialState, action) => {
         : {
             cartItems: action.payload.cartItem
           }
-    case UPDATE_CART_ITEM:
-      return {
-        cartItems: state.cartItems.map(item => {
-          const change = action.change === 'up' ? 1 : -1
 
-          item.productId === action.payload.productId &&
-            (item.quantity = action.payload.quantity + change)
-
-          return item
-        })
-      }
     default:
       return state
   }
