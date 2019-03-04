@@ -1,13 +1,30 @@
+// MODULES & IMPORTS
+
 const User = require('./user')
 const Product = require('./product')
-const Reviews = require('./review')
+const Order = require('./order')
+// const Cart = require('./cart');
+const Review = require('./review')
 
-Reviews.belongsTo(User)
-Reviews.belongsTo(Product)
-Product.hasMany(Reviews)
+//ASSOCIATIONS
+
+Order.belongsTo(User)
+User.hasMany(Order)
+
+// Order.belongsToMany(Product, { through: Cart });
+// Product.belongsToMany(Order, { through: Cart });
+
+Review.belongsTo(Product)
+Product.hasMany(Review)
+
+Review.belongsTo(User)
+User.hasMany(Review)
+
+// EXPORT
 
 module.exports = {
   User,
   Product,
-  Reviews
+  Order,
+  Review
 }

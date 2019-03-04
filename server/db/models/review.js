@@ -4,7 +4,7 @@ const db = require('../db')
 
 // REVIEWS MODEL
 
-const Reviews = db.define('reviews', {
+const Reviews = db.define('review', {
   review: {
     type: Sequelize.TEXT,
     allowNull: false
