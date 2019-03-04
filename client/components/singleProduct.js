@@ -31,8 +31,11 @@ class SelectedProduct extends Component {
       quantity: this.state.quantity,
       name: this.props.singleProduct.name
     }
-    // PLACEHOLDER: to dispatch an action that will use a Thunk that makes a post request to our "cart model"
+
     this.props.addProduct(orderInfo, productId)
+    // this.props.isLoggedIn
+    //   ? this.props.addProduct(orderInfo, productId)
+    //   : console.log('sessions')
   }
 
   componentDidMount() {
@@ -101,7 +104,8 @@ class SelectedProduct extends Component {
 
 const mapStateToProps = function(state) {
   return {
-    singleProduct: state.product.singleProduct
+    singleProduct: state.product.singleProduct,
+    isLoggedIn: !!state.user.id
   }
 }
 
