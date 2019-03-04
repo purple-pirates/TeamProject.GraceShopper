@@ -20,11 +20,21 @@ const Product = db.define(
     },
     imageUrl: {
       type: Sequelize.STRING,
-      defaultValue: '/images/blackHoodie.jpg'
+      defaultValue:
+        'https://s3.amazonaws.com/purple-pirate-pompadours/Hoodies/BlackHoodie.jpg',
+      validate: {
+        isUrl: true
+      }
+    },
+    tags: {
+      type: Sequelize.ARRAY(Sequelize.STRING)
     },
     description: {
       type: Sequelize.TEXT,
-      defaultValue: 'Buy this product!'
+      defaultValue: 'More information has not been provided by the vendor.',
+      validate: {
+        notEmpty: true
+      }
     },
     size: {
       type: Sequelize.ENUM('S', 'M', 'L', 'XL', 'XXL'),
@@ -34,19 +44,52 @@ const Product = db.define(
       type: Sequelize.STRING,
       default: 'Misfit'
     },
-    quantity: Sequelize.INTEGER
+    stock: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      defaultValue: 0,
+      validate: {
+        min: 0
+      }
+    },
+    totalStars: {
+      //NOTE: Total ratings for each star, i.e. 1 star, 2 stars, 3 stars, etc.
+      type: Sequelize.ARRAY(Sequelize.INTEGER),
+      defaultValue: [0, 0, 0, 0, 0]
+    }
   },
   {
     defaultScope: {
-      attributes: ['id', 'name', 'price', 'description', 'imageUrl', 'size']
+      attributes: [
+        'id',
+        'name',
+        'price',
+        'description',
+        'imageUrl',
+        'size',
+        'merchant'
+      ]
     }
   }
 )
+
+//INSTANCE METHODS
+
+Product.incrementRating = function(num) {
+  const oldTotal = this.getDataValue('ratingsTotal')
+  oldTotal[num - 1]++
+  this.setDataValue('ratingsTotal', oldTotal)
+}
 
 // PROTOTYPE METHOD
 
 Product.prototype.priceInDollars = price => {
   return `$${price / 100}`
+}
+
+Product.prototype.decrementStock = function(num) {
+  this.stock = Math.max(this.stock - num, 0)
+  // NOTE: Consider a message alert for when stock empty; item should be hidden on storefront.
 }
 
 // EXPORT
