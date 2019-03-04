@@ -20,6 +20,10 @@ const User = db.define('user', {
       isEmail: true
     }
   },
+  isAdmin: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
+  },
   password: {
     type: Sequelize.STRING,
     get() {
@@ -33,6 +37,12 @@ const User = db.define('user', {
     }
   },
   googleId: {
+    type: Sequelize.STRING
+  },
+  twitterId: {
+    type: Sequelize.STRING
+  },
+  facebookId: {
     type: Sequelize.STRING
   },
   street: {
@@ -52,7 +62,8 @@ const User = db.define('user', {
   },
   imageUrl: {
     type: Sequelize.STRING,
-    defaultValue: '/images/defaultUser.png'
+    defaultValue:
+      'https://s3.amazonaws.com/purple-pirate-pompadours/default-user.svg'
   }
 })
 
@@ -60,6 +71,10 @@ const User = db.define('user', {
 
 User.prototype.correctPassword = function(candidatePwd) {
   return User.encryptPassword(candidatePwd, this.salt()) === this.password()
+}
+
+User.prototype.displayFullName = function() {
+  return `${this.firstName} ${this.lastName}`
 }
 
 // CLASS METHODS
