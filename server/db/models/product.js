@@ -38,6 +38,7 @@ const Product = db.define(
       }
     },
     size: {
+      // NOTE: Consider that we'd have specific stock for specific sizes; may need an associated table.
       type: Sequelize.ENUM('S', 'M', 'L', 'XL', 'XXL'),
       defaultValue: 'M'
     },
