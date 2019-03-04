@@ -1,10 +1,13 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {getUpdateUser} from '../store'
+import {getUpdateUser, me} from '../store'
 
 class Profile extends React.Component {
   constructor() {
     super()
+    this.state = {
+      update: false
+    }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
@@ -13,19 +16,24 @@ class Profile extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    const userId = this.props.match.params.userId
-    const updatedStudent = {
+    const userId = this.props.userInfo.id
+    const updatedUser = {
       firstName: e.target.firstName.value,
       lastName: e.target.lastName.value,
       email: e.target.email.value
     }
-    this.props.updateStudent(userId, updatedStudent)
+    this.props.updateUser(userId, updatedUser)
+    // this.setState({ update: true })
   }
 
-  componentDidMount() {}
+  // componentDidUpdate(prevProps) {
+  //   if(this.props.userId !== prevProps.userId) {
+  //     this.props.loadUser(this.props.userInfo.id)
+  //     // this.setState({ update: false })
+  //   }
+  // }
 
-  render = () => {
-    console.log('USER INFO PROPS: ', this.props.userInfo)
+  render() {
     return (
       <div>
         {this.props.userInfo.length < 1 ? (
@@ -48,7 +56,7 @@ class Profile extends React.Component {
             <h4>Zip: {this.props.userInfo.zip || 'N/A'}</h4>
             <h4>Phone: {this.props.userInfo.phone || 'N/A'}</h4>
             <form id="update-user-form" onSubmit={this.handleSubmit}>
-              <h3>Submit the form below to update this user: </h3>
+              <h4>Submit the form below to update this user: </h4>
               <label htmlFor="name"> First Name: </label>
               <input
                 className="form-control"
@@ -88,8 +96,9 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  updateStudent: (userId, updatedUser) =>
-    dispatch(getUpdateUser(userId, updatedUser))
+  updateUser: (userId, updatedUser) =>
+    dispatch(getUpdateUser(userId, updatedUser)),
+  loadUser: () => dispatch(me())
 })
 
 export const userProfile = connect(mapStateToProps, mapDispatchToProps)(Profile)

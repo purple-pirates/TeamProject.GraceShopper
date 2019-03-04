@@ -76,10 +76,7 @@ export default function(state = initialState, action) {
     case REMOVE_USER:
       return initialState
     case UPDATE_USER: {
-      return {
-        ...state,
-        singleUser: action.payload
-      }
+      return {...state, singleUser: action.payload}
     }
     default:
       return state
