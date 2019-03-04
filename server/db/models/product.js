@@ -27,8 +27,14 @@ const Product = db.define(
       defaultValue: 'Buy this product!'
     },
     size: {
-      type: Sequelize.ENUM('S', 'M', 'L', 'XL', 'XXL'),
-      defaultValue: 'M'
+      type: Sequelize.ENUM(
+        'Small',
+        'Medium',
+        'Large',
+        'Extra Large',
+        'XX Large'
+      ),
+      defaultValue: 'Medium'
     },
     merchant: {
       type: Sequelize.STRING,
