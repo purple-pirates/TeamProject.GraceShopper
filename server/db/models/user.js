@@ -21,6 +21,7 @@ const User = db.define('user', {
     }
   },
   isAdmin: {
+    //NOTE: For the admin panel streth goal.
     type: Sequelize.BOOLEAN,
     defaultValue: false
   },
