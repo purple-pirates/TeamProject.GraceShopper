@@ -76,9 +76,15 @@ const Product = db.define(
 //INSTANCE METHODS
 
 Product.incrementRating = function(num) {
-  const oldTotal = this.getDataValue('ratingsTotal')
+  const oldTotal = this.getDataValue('totalStars')
   oldTotal[num - 1]++
-  this.setDataValue('ratingsTotal', oldTotal)
+  this.setDataValue('totalStars', oldTotal)
+}
+
+Product.averageRating = function() {
+  return this.totalStars.reduce((val, idx) => {
+    return val * (idx + 1)
+  }, 0)
 }
 
 // PROTOTYPE METHOD
