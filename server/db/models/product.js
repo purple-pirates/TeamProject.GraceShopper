@@ -1,4 +1,5 @@
 // IMPORTS & MODULES
+
 const Sequelize = require('sequelize')
 const db = require('../db')
 
@@ -87,7 +88,7 @@ Product.averageRating = function() {
   }, 0)
 }
 
-// PROTOTYPE METHOD
+// PROTOTYPE METHODS
 
 Product.prototype.priceInDollars = price => {
   return `$${price / 100}`

@@ -1,7 +1,6 @@
 // IMPORTS & MODULES
 const Sequelize = require('sequelize')
 const db = require('../db')
-// const Cart = require ('./cart');
 
 // ORDERS MODEL
 
@@ -27,7 +26,7 @@ const Order = db.define('order', {
     noUpdate: true,
     allowNull: false
   },
-  subTotal: {
+  total: {
     type: Sequelize.VIRTUAL,
     get: function() {
       if (this.items && this.items.length)
@@ -79,6 +78,12 @@ const Order = db.define('order', {
     type: Sequelize.TEXT
   }
 })
+
+// PROTOTYPE METHODS
+
+Order.prototype.priceInDollars = price => {
+  return `$${price / 100}`
+}
 
 // EXPORT
 
