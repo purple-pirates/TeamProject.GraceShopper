@@ -46,6 +46,7 @@ const Product = db.define(
       default: 'Misfit'
     },
     stock: {
+      // NOTE: Consider a way to reserve an item for someone whose cart is not submitted. Reservation?
       type: Sequelize.INTEGER,
       allowNull: false,
       defaultValue: 0,

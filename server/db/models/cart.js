@@ -33,7 +33,7 @@ Cart.prototype.priceInDollars = price => {
 }
 
 /*
-I think there is a better way to get the total by making use of instance methods and involving the cart through table.
+I think there is a better way to get the total, by making use of instance methods and involving the cart through table.
 */
 
 // EXPORT
