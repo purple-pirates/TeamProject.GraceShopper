@@ -9,16 +9,16 @@ export class Cart extends Component {
   }
 
   render() {
-    console.log(this.props.cartItems)
+    console.log('PROPS CART ITEMS', this.props.cartItems)
     return (
       <div>
         {this.props.cartItems.length < 1 ? (
           <h1>Your cart is empty</h1>
         ) : (
           this.props.cartItems.map((item, idx) => {
+            console.log('THIS IS THE ITEM', item)
             return (
               <div key={idx}>
-                {/* <img src={item.productId.imageUrl} /> */}
                 <span>
                   <b>Name: </b>
                   {item.name}
@@ -29,14 +29,14 @@ export class Cart extends Component {
                   <b>Quantity: </b>{' '}
                   <button
                     type="button"
-                    onClick={() => this.props.putCartItem(item, 'up')}
+                    onClick={() => this.props.putCartItem(item, 'down')}
                   >
                     -
                   </button>
                   {item.quantity}
                   <button
                     type="button"
-                    onClick={() => this.props.putCartItem(item, 'down')}
+                    onClick={() => this.props.putCartItem(item, 'up')}
                   >
                     +
                   </button>

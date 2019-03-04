@@ -29,6 +29,7 @@ router.post('/:productId', async (req, res, next) => {
   try {
     const productId = req.params.productId
     if (req.session.passport === undefined) {
+      //if the user is not logged in
       if (req.session.cartItems === undefined) {
         req.session.cartItems = [req.body]
       } else if (req.session.cartItems) {
@@ -51,7 +52,14 @@ router.post('/:productId', async (req, res, next) => {
       }
       res.status(204).send(req.session.cartItems)
     } else {
+      //If the user is logged in
       const userId = req.session.passport.user
+      const cartItem = await Cart.findAll({
+        where: {
+          userId
+        }
+      })
+      let newQuantity
       let body = {
         size: req.body.size,
         quantity: req.body.quantity,
@@ -59,12 +67,6 @@ router.post('/:productId', async (req, res, next) => {
         userId: userId,
         productId: productId
       }
-      const cartItem = await Cart.findAll({
-        where: {
-          userId
-        }
-      })
-      let newQuantity
 
       for (let x = 0; x < cartItem.length; x++) {
         if (cartItem[x].dataValues.productId === req.body.id) {
@@ -100,22 +102,36 @@ router.post('/:productId', async (req, res, next) => {
 })
 
 router.put('/:productId', async (req, res, next) => {
-  await Cart.update(
-    {quantity: 3},
-    {
-      where: {
-        userId: req.session.passport.user,
-        productId: req.params.productId
+  const change = req.body.change === 'up' ? 1 : -1
+
+  if (req.session.passport === undefined) {
+    await Cart.update(
+      {quantity: req.session.cartItems.quantity + change},
+      {
+        where: {
+          userId: req.session.passport.user,
+          productId: req.params.productId
+        }
       }
-    }
-  )
+    )
+  } else {
+    await Cart.update(
+      {quantity: req.body.quantity + change},
+      {
+        where: {
+          userId: req.body.userId, //req.session.passport.user,
+          productId: req.params.productId
+        }
+      }
+    )
+  }
   res.end()
 })
 
 router.delete('/:productId', async (req, res, next) => {
   await Cart.destroy({
     where: {
-      userId: req.session.passport.user,
+      // userId: req.session.passport.user,
       productId: req.params.productId
     }
   })

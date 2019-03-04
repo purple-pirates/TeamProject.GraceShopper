@@ -13,9 +13,10 @@ const getCartItems = cartItems => ({
   payload: cartItems
 })
 
-const updateCartItems = cartItems => ({
+const updateCartItems = (cartItems, change) => ({
   type: UPDATE_CART_ITEM,
-  payload: cartItems
+  payload: cartItems,
+  change
 })
 
 const deleteCartItem = itemInfo => ({
@@ -29,7 +30,11 @@ export const fetchCartItems = () => async dispatch => {
 }
 
 export const putCartItem = (item, change) => async dispatch => {
-  await axios.put(`/api/cart/${item.productId}`)
+  const body = {
+    ...item,
+    change
+  }
+  await axios.put(`/api/cart/${item.productId}`, body)
   dispatch(updateCartItems(item, change))
 }
 
@@ -49,19 +54,14 @@ export default (state = initialState, action) => {
         )
       }
     case UPDATE_CART_ITEM:
-      console.log('update cart reducer', state.cartItems)
-
       return {
         cartItems: state.cartItems.map(item => {
-          item.productId === action.payload.productId &&
-            (action.payload.quantity = action.payload.quantity + 1)
+          const change = action.change === 'up' ? 1 : -1
+          if (item.productId === action.payload.productId) {
+            item.quantity = action.payload.quantity + change
+          }
+          return item
         })
-        // cartItems: action.payload
-        // cartItems: action.payload.map(item => {
-        //   if (item.productId === action.payload.productId) {
-        //     item.quantity += 1
-        //   }
-        // })
       }
     default:
       return state
