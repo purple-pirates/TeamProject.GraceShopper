@@ -115,23 +115,27 @@ router.put('/:productId', async (req, res, next) => {
 })
 
 router.delete('/:productId', async (req, res, next) => {
-  if (req.session.passport === undefined) {
-    const cartItem = req.session.cartItems
-    for (let x = 0; x < cartItem.length; x++) {
-      if (cartItem[x].name === req.body.name) {
-        cartItem.splice(x, 1)
-        break
+  const cartItem = req.session.cartItems
+  try {
+    if (req.session.passport === undefined) {
+      for (let x = 0; x < cartItem.length; x++) {
+        if (cartItem[x].name === req.body.name) {
+          cartItem.splice(x, 1)
+          break
+        }
       }
+
+      res.send({cartItem})
+    } else {
+      await Cart.destroy({
+        where: {
+          productId: req.params.productId
+        }
+      })
+      res.send({user: req.session.passport})
     }
-    res.send(cartItem)
-    console.log('after remove', cartItem)
-  } else {
-    await Cart.destroy({
-      where: {
-        productId: req.params.productId
-      }
-    })
-    res.end()
+  } catch (e) {
+    next(e)
   }
 })
 

@@ -39,8 +39,12 @@ export const putCartItem = (item, change) => async dispatch => {
 }
 
 export const removeCartItem = itemInfo => async dispatch => {
-  await axios.delete(`/api/cart/${itemInfo.productId}`, {data: itemInfo})
-  dispatch(deleteCartItem(itemInfo))
+  const {data} = await axios.delete(`/api/cart/${itemInfo.productId}`, {
+    data: itemInfo
+  })
+  data.user
+    ? dispatch(deleteCartItem(itemInfo))
+    : dispatch(deleteCartItem(data))
 }
 
 export default (state = initialState, action) => {
@@ -48,18 +52,23 @@ export default (state = initialState, action) => {
     case GET_CART_ITEMS:
       return {cartItems: action.payload}
     case DELETE_CART_ITEM:
-      return {
-        cartItems: state.cartItems.filter(
-          item => item.productId !== action.payload.productId
-        )
-      }
+      return !action.payload.cartItem
+        ? {
+            cartItems: state.cartItems.filter(
+              item => item.productId !== action.payload.productId
+            )
+          }
+        : {
+            cartItems: action.payload.cartItem
+          }
     case UPDATE_CART_ITEM:
       return {
         cartItems: state.cartItems.map(item => {
           const change = action.change === 'up' ? 1 : -1
-          if (item.productId === action.payload.productId) {
-            item.quantity = action.payload.quantity + change
-          }
+
+          item.productId === action.payload.productId &&
+            (item.quantity = action.payload.quantity + change)
+
           return item
         })
       }
