@@ -168,4 +168,18 @@ router.delete('/:productId', async (req, res, next) => {
   }
 })
 
+router.post('/charge', async (req, res) => {
+  try {
+    let {status} = await stripe.charges.create({
+      amount: 40000,
+      currency: 'usd',
+      description: 'Hoodie',
+      source: req.body
+    })
+    res.json({status})
+  } catch (err) {
+    res.status(500).end()
+  }
+})
+
 module.exports = router

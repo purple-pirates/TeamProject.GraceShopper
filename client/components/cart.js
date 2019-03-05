@@ -14,9 +14,9 @@ export class Cart extends Component {
         {this.props.cartItems.length < 1 ? (
           <h1>Your cart is empty</h1>
         ) : (
-          this.props.cartItems.map((item, idx) => {
+          this.props.cartItems.map(item => {
             return (
-              <div key={idx}>
+              <div key={item.name}>
                 <span>
                   <b>Name: </b>
                   {item.name}
