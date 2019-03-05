@@ -1,5 +1,6 @@
 /* eslint-disable complexity */
 const router = require('express').Router()
+const stripe = require('stripe')('sk_test_BD8d7i7TOX1lEatol10oRtGi')
 
 const {Cart, Product} = require('../db/models')
 
@@ -153,13 +154,19 @@ router.delete('/:productId', async (req, res, next) => {
   }
 })
 
-router.post('/charge', (req, res) => {
-  const amount = 4000
-  // stripeToken, stripeTokenType, stripeEmail
-  console.log(req.body)
-  res.send('test')
-  // amount, description, currency, customer
-  // res.render('success')
+router.post('/charge', async (req, res) => {
+  try {
+    let {status} = await stripe.charges.create({
+      amount: 40000,
+      currency: 'usd',
+      description: 'Hoodie',
+      source: req.body
+    })
+    res.json({status})
+    console.log('STATUS IS: ', status)
+  } catch (err) {
+    res.status(500).end()
+  }
 })
 
 module.exports = router
