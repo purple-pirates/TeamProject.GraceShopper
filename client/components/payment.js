@@ -53,37 +53,3 @@ class CheckoutForm extends React.Component {
 }
 
 export default injectStripe(CheckoutForm)
-
-/*
-
-      <form onSubmit={this.handleSubmit}>
-        <AddressSection />
-        <CardSection />
-        <button>Confirm order</button>
-      </form>
-
-import React, {Component} from 'react'
-import {CardElement, injectStripe} from 'react-stripe-elements'
-
-class Payment extends Component {
-  constructor(props) {
-    super(props)
-    this.submit = this.submit.bind(this)
-  }
-
-  async submit(ev) {
-    // User clicked submit
-  }
-
-  render() {
-    return (
-    <div>
-      <h1>HELLO</h1>
-    </div>
-    )
-  }
-}
-
-export default injectStripe(Payment)
-
-*/
