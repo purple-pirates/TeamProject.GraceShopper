@@ -16,13 +16,9 @@ class SelectedProduct extends Component {
     this.setState({
       [e.target.name]: e.target.value
     })
-    // console.log('state after update: ', this.state)
   }
 
   handleSubmit(e) {
-    // PLACEHOLDER: alert to be replaced with redirect to shopping cart view
-    // alert('your order has been submitted!')
-
     e.preventDefault()
     const productId = this.props.match.params.productId
     const orderInfo = {
@@ -33,9 +29,6 @@ class SelectedProduct extends Component {
     }
 
     this.props.addProduct(orderInfo, productId)
-    // this.props.isLoggedIn
-    //   ? this.props.addProduct(orderInfo, productId)
-    //   : console.log('sessions')
   }
 
   componentDidMount() {
