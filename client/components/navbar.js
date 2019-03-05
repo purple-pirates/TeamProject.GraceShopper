@@ -6,14 +6,12 @@ import {logout} from '../store'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
   <div>
-    <h1>Misfit Merch</h1>
+    <img src="misfitLogo.gif" alt="misfitMERCH logo" id="logo" />
     <nav>
       <div>
         {/* The navbar will show these links after you log in */}
         <Link to="/home">Home</Link>
         <Link to="/products">Products</Link>
-        <Link to="/about">About</Link>
-        <Link to="/search">Search</Link>
         <Link to="/cart">Cart</Link>
         {isLoggedIn ? (
           <span>

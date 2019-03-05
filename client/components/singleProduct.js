@@ -5,7 +5,7 @@ class SelectedProduct extends Component {
   constructor() {
     super()
     this.state = {
-      size: 'M',
+      size: 'Medium',
       quantity: 1
     }
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -16,21 +16,18 @@ class SelectedProduct extends Component {
     this.setState({
       [e.target.name]: e.target.value
     })
-    console.log('state after update: ', this.state)
   }
 
   handleSubmit(e) {
-    // PLACEHOLDER: alert to be replaced with redirect to shopping cart view
-    alert('your order has been submitted!')
-
     e.preventDefault()
     const productId = this.props.match.params.productId
     const orderInfo = {
       id: this.props.singleProduct.id,
       size: this.state.size,
-      quantity: this.state.quantity
+      quantity: this.state.quantity,
+      name: this.props.singleProduct.name
     }
-    // PLACEHOLDER: to dispatch an action that will use a Thunk that makes a post request to our "cart model"
+
     this.props.addProduct(orderInfo, productId)
   }
 
@@ -100,7 +97,8 @@ class SelectedProduct extends Component {
 
 const mapStateToProps = function(state) {
   return {
-    singleProduct: state.product.singleProduct
+    singleProduct: state.product.singleProduct,
+    isLoggedIn: !!state.user.id
   }
 }
 

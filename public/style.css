@@ -15,6 +15,11 @@ nav a {
   margin: 1em;
 }
 
+#logo {
+  height: 80px;
+  width: 225x;
+}
+
 form div {
   margin: 1em;
   display: inline-block;
@@ -64,4 +69,26 @@ form div {
 #add_single_product {
   border: 1px solid #555;
   padding: 20px;
+}
+
+/* OAUTH BUTTON */
+.btn {
+  border: none;
+  transition: all 0.75s ease;
+  outline: none;
+}
+.rounded {
+  border-radius: 3px;
+}
+.btn.bg-red:hover {
+  background-color: #ad000f;
+}
+.bg-red {
+  background-color: #cf000f;
+}
+.p1 {
+  padding: 1em;
+}
+.white {
+  color: white;
 }

@@ -54,11 +54,11 @@ const Product = db.define('product', {
 
 //INSTANCE METHODS
 
-Product.averageRating = function() {
-  return this.totalStars.reduce((val, idx) => {
-    return val * (idx + 1)
-  }, 0)
-}
+// Product.averageRating = function() {
+//   return this.totalStars.reduce((val, idx) => {
+//     return val * (idx + 1)
+//   }, 0)
+// }
 
 // PROTOTYPE METHODS
 

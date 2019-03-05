@@ -1,66 +1,173 @@
+/* eslint-disable complexity */
 const router = require('express').Router()
-const {Product} = require('../db/models')
+const stripe = require('stripe')(process.env.STRIPE_KEY)
 
-function orderTotal(products) {
-  let total
-  products.forEach(product => {
-    total += product.price * product.quantity
-  })
-  return total
-}
+const {Cart, Product} = require('../db/models')
 
-router.get('/', (req, res, next) => {
-  if (!req.session.cart) req.session.cart = {products: [], total: 0}
-  res.json(req.session.cart)
-})
-
-router.put('/', (req, res, next) => {
-  if (!req.session.cart) req.session.cart = {products: [], total: 0}
-  let found = false
-  for (let i = 0; i < req.session.cart.products.length; i++) {
-    if (req.body.id === req.session.cart.products[i].id) {
-      if (req.body.quantity) {
-        const oldQuantity = req.session.cart.products[i].quantity
-        req.session.cart.products[i].quantity += req.body.quantity - oldQuantity
-        if (req.session.cart.products[i].quantity === 0) {
-          req.session.cart.products.splice(i, 1)
+// GET Route for /api/cart
+router.get('/', async (req, res, next) => {
+  try {
+    if (req.session.passport === undefined) {
+      res.send(req.session.cartItems)
+    } else {
+      const userId = req.session.passport.user
+      const cart = await Cart.findAll({
+        where: {
+          userId
         }
-      } else {
-        req.session.cart.products[i].quantity++
-      }
-      req.session.cart.total = orderTotal(req.session.cart.products)
-      res.json(req.session.cart)
-      found = true
-      break
-    }
-  }
-  if (found === false) {
-    Product.findById(req.body.id)
-      .then(product => {
-        req.session.cart.products.push({
-          id: product.id,
-          name: product.name,
-          category: product.category,
-          description: product.description,
-          price: product.price,
-          inventory: product.inventory,
-          ratingsTotal: product.ratingsTotal,
-          images: product.images,
-          quantity: 1
-        })
-        req.session.cart.total += product.price
-        res.json(req.session.cart)
       })
-      .catch(next)
+      res.json(cart)
+    }
+  } catch (err) {
+    next(err)
   }
 })
 
-router.delete('/:productId', (req, res, next) => {
-  req.session.cart.products = req.session.cart.products.filter(
-    product => product.id !== +req.params.productId
-  )
-  req.session.cart.total = orderTotal(req.session.cart.products)
-  res.json(req.session.cart)
+// POST: api/cart
+// eslint-disable-next-line max-statements
+router.post('/:productId', async (req, res, next) => {
+  let found = false
+  try {
+    const productId = req.params.productId
+    if (req.session.passport === undefined) {
+      if (req.session.cartItems === undefined) {
+        req.session.cartItems = [req.body]
+      } else if (req.session.cartItems) {
+        const cartItem = req.session.cartItems
+
+        for (let x = 0; x < cartItem.length; x++) {
+          if (
+            cartItem[x].id === req.body.id &&
+            cartItem[x].size === req.body.size
+          ) {
+            found = true
+            cartItem[x].quantity =
+              Number(cartItem[x].quantity) + Number(req.body.quantity)
+            break
+          }
+        }
+        if (!found) {
+          req.session.cartItems.push(req.body)
+        }
+      }
+      res.status(204).send(req.session.cartItems)
+    } else {
+      const userId = req.session.passport.user
+      console.log('THIS IS BEFORE THE CART ITEM &&&&&&&&&')
+      const cartItem = await Cart.findAll({
+        where: {
+          userId
+        }
+      })
+      console.log('Cart Item: ', cartItem)
+      let newQuantity
+      let body = {
+        size: req.body.size,
+        quantity: req.body.quantity,
+        name: req.body.name,
+        userId: userId,
+        productId: productId
+      }
+
+      for (let x = 0; x < cartItem.length; x++) {
+        if (cartItem[x].dataValues.productId === req.body.id) {
+          found = true
+          newQuantity =
+            cartItem[x].dataValues.quantity + Number(req.body.quantity)
+
+          await Cart.update(
+            {quantity: newQuantity},
+            {
+              where: {
+                size: req.body.size,
+                name: req.body.name,
+                userId,
+                productId
+              },
+              returning: true,
+              plain: true
+            }
+          )
+          break
+        }
+      }
+      if (!found) {
+        await Cart.create(body)
+      }
+
+      res.send()
+    }
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.put('/:productId', async (req, res, next) => {
+  try {
+    const change = req.body.change === 'up' ? 1 : -1
+    if (req.session.passport === undefined) {
+      const cartItem = req.session.cartItems
+      for (let x = 0; x < cartItem.length; x++) {
+        if (cartItem[x].name === req.body.name) {
+          cartItem[x].quantity = Number(cartItem[x].quantity) + change
+          break
+        }
+      }
+      res.send({cartItem})
+    } else {
+      await Cart.update(
+        {quantity: req.body.quantity + change},
+        {
+          where: {
+            userId: req.body.userId,
+            productId: req.params.productId
+          }
+        }
+      )
+      res.send({user: req.session.passport})
+    }
+  } catch (e) {
+    next(e)
+  }
+})
+
+router.delete('/:productId', async (req, res, next) => {
+  try {
+    if (req.session.passport === undefined) {
+      const cartItem = req.session.cartItems
+      for (let x = 0; x < cartItem.length; x++) {
+        if (cartItem[x].name === req.body.name) {
+          cartItem.splice(x, 1)
+          break
+        }
+      }
+
+      res.send({cartItem})
+    } else {
+      await Cart.destroy({
+        where: {
+          productId: req.params.productId
+        }
+      })
+      res.send({user: req.session.passport})
+    }
+  } catch (e) {
+    next(e)
+  }
+})
+
+router.post('/charge', async (req, res) => {
+  try {
+    let {status} = await stripe.charges.create({
+      amount: 40000,
+      currency: 'usd',
+      description: 'Hoodie',
+      source: req.body
+    })
+    res.json({status})
+  } catch (err) {
+    res.status(500).end()
+  }
 })
 
 module.exports = router
