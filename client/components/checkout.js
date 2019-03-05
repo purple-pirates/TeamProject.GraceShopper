@@ -1,7 +1,19 @@
-import React, {Component} from 'react'
+import React from 'react'
+import {Elements, StripeProvider} from 'react-stripe-elements'
+import {Payment} from './payment'
 
-export class Checkout extends Component {
-  render() {
-    return <div>Checkout page, pay up</div>
-  }
+const Checkout = () => {
+  return (
+    <div>
+      <StripeProvider apiKey="pk_test_APN8EikgFCetmHevbZhBh8LD">
+        <div className="example">
+          <Elements>
+            <Payment />
+          </Elements>
+        </div>
+      </StripeProvider>
+    </div>
+  )
 }
+
+export default Checkout
