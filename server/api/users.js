@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const {User, Order, Product} = require('../db/models')
-module.exports = router
+const {isLoggedIn, isAdmin} = require('./security')
 
 // GET Route for /api/users
 
@@ -109,3 +109,5 @@ router.post('/signup', (req, res, next) => {
     .then(user => res.json(user))
     .catch(next)
 })
+
+module.exports = router

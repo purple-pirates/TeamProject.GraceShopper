@@ -10,6 +10,5 @@ function isAdmin(req, res, next) {
 
 module.exports = {
   isLoggedIn,
-  isAdmin,
-  isSelfOrAdmin
+  isAdmi
 }
