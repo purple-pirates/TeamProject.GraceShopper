@@ -153,4 +153,13 @@ router.delete('/:productId', async (req, res, next) => {
   }
 })
 
+router.post('/charge', (req, res) => {
+  const amount = 4000
+  // stripeToken, stripeTokenType, stripeEmail
+  console.log(req.body)
+  res.send('test')
+  // amount, description, currency, customer
+  // res.render('success')
+})
+
 module.exports = router
