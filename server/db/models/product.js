@@ -1,58 +1,73 @@
 // IMPORTS & MODULES
+
 const Sequelize = require('sequelize')
 const db = require('../db')
 
 // PRODUCTS MODEL
 
-const Product = db.define(
-  'product',
-  {
-    name: {
-      type: Sequelize.STRING,
-      allowNull: false
-    },
-    price: {
-      type: Sequelize.INTEGER, // Stored in cents.
-      allowNull: false,
-      get() {
-        return this.priceInDollars(this.getDataValue('price'))
-      }
-    },
-    imageUrl: {
-      type: Sequelize.STRING,
-      defaultValue: '/images/blackHoodie.jpg'
-    },
-    description: {
-      type: Sequelize.TEXT,
-      defaultValue: 'Buy this product!'
-    },
-    size: {
-      type: Sequelize.ENUM(
-        'Small',
-        'Medium',
-        'Large',
-        'Extra Large',
-        'XX Large'
-      ),
-      defaultValue: 'Medium'
-    },
-    merchant: {
-      type: Sequelize.STRING,
-      default: 'Misfit'
-    },
-    quantity: Sequelize.INTEGER
+const Product = db.define('product', {
+  name: {
+    type: Sequelize.STRING,
+    allowNull: false
   },
-  {
-    defaultScope: {
-      attributes: ['id', 'name', 'price', 'description', 'imageUrl', 'size']
+  price: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    get() {
+      return this.priceInDollars(this.getDataValue('price'))
     }
+  },
+  imageUrl: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      isUrl: true
+    }
+  },
+  description: {
+    type: Sequelize.TEXT,
+    defaultValue: 'More information has not been provided by the vendor.',
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
+  },
+  size: {
+    type: Sequelize.STRING,
+    defaultValue: 'M',
+    validate: {
+      notEmpty: true
+    }
+  },
+  stock: {
+    type: Sequelize.INTEGER,
+    defaultValue: 0,
+    validate: {
+      min: 0
+    }
+  },
+  totalStars: {
+    type: Sequelize.ARRAY(Sequelize.INTEGER),
+    defaultValue: [0, 0, 0, 0, 0]
   }
-)
+})
 
-// PROTOTYPE METHOD
+//INSTANCE METHODS
+
+// Product.averageRating = function() {
+//   return this.totalStars.reduce((val, idx) => {
+//     return val * (idx + 1)
+//   }, 0)
+// }
+
+// PROTOTYPE METHODS
 
 Product.prototype.priceInDollars = price => {
-  return `$${price / 100}`
+  return '$' + price / 100
+}
+
+Product.prototype.decrementStock = function(num) {
+  this.stock = Math.max(this.stock - num, 0)
 }
 
 // EXPORT

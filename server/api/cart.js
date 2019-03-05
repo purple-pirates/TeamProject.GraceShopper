@@ -67,11 +67,13 @@ router.post('/:productId', async (req, res, next) => {
       res.status(204).send(req.session.cartItems)
     } else {
       const userId = req.session.passport.user
+      console.log('THIS IS BEFORE THE CART ITEM &&&&&&&&&')
       const cartItem = await Cart.findAll({
         where: {
           userId
         }
       })
+      console.log('Cart Item: ', cartItem)
       let newQuantity
       let body = {
         size: req.body.size,

@@ -1,6 +1,6 @@
 const router = require('express').Router()
-const {User} = require('../db/models')
-module.exports = router
+const {User, Order, Product} = require('../db/models')
+const {isLoggedIn, isAdmin} = require('./security')
 
 // GET Route for /api/users
 
@@ -22,6 +22,28 @@ router.get('/:userId', async (req, res, next) => {
   } catch (err) {
     next(err)
   }
+})
+
+// GET Route for /api/users/orders
+
+router.get('/account/orders', (req, res, next) => {
+  User.findById(req.user.id)
+    .then(user => {
+      return Order.findAll({
+        where: {
+          userId: req.user.id
+        },
+        include: [
+          {
+            model: Product
+          }
+        ]
+      })
+    })
+    .then(orders => {
+      res.json(orders)
+    })
+    .catch(next)
 })
 
 // PUT Route for /api/users/:userId
@@ -87,3 +109,5 @@ router.post('/signup', (req, res, next) => {
     .then(user => res.json(user))
     .catch(next)
 })
+
+module.exports = router

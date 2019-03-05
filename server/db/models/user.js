@@ -1,4 +1,5 @@
 // IMPORTS & MODULES
+
 const crypto = require('crypto')
 const Sequelize = require('sequelize')
 const db = require('../db')
@@ -20,6 +21,11 @@ const User = db.define('user', {
       isEmail: true
     }
   },
+  isAdmin: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false,
+    allowNull: false
+  },
   password: {
     type: Sequelize.STRING,
     get() {
@@ -35,6 +41,12 @@ const User = db.define('user', {
   googleId: {
     type: Sequelize.STRING
   },
+  twitterId: {
+    type: Sequelize.STRING
+  },
+  facebookId: {
+    type: Sequelize.STRING
+  },
   street: {
     type: Sequelize.STRING
   },
@@ -47,12 +59,19 @@ const User = db.define('user', {
   zip: {
     type: Sequelize.STRING
   },
+  shippingAddress: {
+    type: Sequelize.STRING,
+    get() {
+      return () => this.getShippingAddress('shippingAddress')
+    }
+  },
   phone: {
     type: Sequelize.STRING
   },
   imageUrl: {
     type: Sequelize.STRING,
-    defaultValue: '/images/defaultUser.png'
+    defaultValue:
+      'https://s3.amazonaws.com/purple-pirate-pompadours/icons/user-avatar.svg'
   }
 })
 
@@ -60,6 +79,14 @@ const User = db.define('user', {
 
 User.prototype.correctPassword = function(candidatePwd) {
   return User.encryptPassword(candidatePwd, this.salt()) === this.password()
+}
+
+User.prototype.displayFullName = function() {
+  return `${this.firstName} ${this.lastName}`
+}
+
+User.prototype.getShippingAddress = function() {
+  return `${this.street}, ${this.city}, ${this.state} ${this.zip}`
 }
 
 // CLASS METHODS
