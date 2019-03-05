@@ -16,34 +16,26 @@ const Order = db.define('order', {
     allowNull: false
   },
   recipientName: {
-    // NOTE: Should default to user's full name.
     type: Sequelize.STRING,
     allowNull: false
   },
   recipientStreet: {
-    // NOTE: Should default to user's street address.
     type: Sequelize.STRING,
     allowNull: false
   },
   recipientCity: {
-    // NOTE: Should default to user's city.
     type: Sequelize.STRING,
     allowNull: false
   },
   recipientState: {
-    // NOTE: Should default to user's state.
     type: Sequelize.STRING,
     allowNull: false
   },
   recipientZip: {
-    // NOTE: Should default to user's zip.
     type: Sequelize.STRING,
     allowNull: false
   },
   customerPhone: {
-    /*
-      NOTE: Should default to user's phone, will always be the phone number of the customer making the purchase.
-      */
     type: Sequelize.STRING
   },
   gift: {
