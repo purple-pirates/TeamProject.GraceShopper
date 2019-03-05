@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const {Product} = require('../db/models')
-module.exports = router
+const {isLoggedIn, isAdmin} = require('./security')
 
 // GET Route for /api/products
 
@@ -22,3 +22,5 @@ router.get('/:productId', async (req, res, next) => {
     next(err)
   }
 })
+
+module.exports = router
