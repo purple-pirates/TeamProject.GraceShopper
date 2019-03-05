@@ -23,6 +23,20 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+router.post('/charge', async (req, res) => {
+  try {
+    let {status} = await stripe.charges.create({
+      amount: 4000,
+      currency: 'usd',
+      description: 'Hoodie',
+      source: req.body
+    })
+    res.json({status})
+  } catch (err) {
+    res.status(500).end()
+  }
+})
+
 // POST: api/cart
 // eslint-disable-next-line max-statements
 router.post('/:productId', async (req, res, next) => {
