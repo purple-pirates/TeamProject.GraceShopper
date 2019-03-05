@@ -59,6 +59,12 @@ const User = db.define('user', {
   zip: {
     type: Sequelize.STRING
   },
+  shippingAddress: {
+    type: Sequelize.STRING,
+    get() {
+      return () => this.getShippingAddress('shippingAddress')
+    }
+  },
   phone: {
     type: Sequelize.STRING
   },
@@ -77,6 +83,10 @@ User.prototype.correctPassword = function(candidatePwd) {
 
 User.prototype.displayFullName = function() {
   return `${this.firstName} ${this.lastName}`
+}
+
+User.prototype.getShippingAddress = function() {
+  return `${this.street}, ${this.city}, ${this.state} ${this.zip}`
 }
 
 // CLASS METHODS
