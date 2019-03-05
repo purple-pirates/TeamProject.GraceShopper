@@ -126,6 +126,13 @@ const products = [
       'https://s3.amazonaws.com/purple-pirate-pompadours/Hoodies/Floral.jpg',
     description:
       'This hoodie is like a beautiful flower which I may not touch, but whose fragrance makes the garden a place of delight just the same.'
+  },
+  {
+    name: 'The King',
+    price: 5599,
+    imageUrl:
+      'https://s3.amazonaws.com/purple-pirate-pompadours/Hoodies/Lion.jpg',
+    description: "When you just can't wait to be king."
   }
 ]
 
