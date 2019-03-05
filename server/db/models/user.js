@@ -22,9 +22,9 @@ const User = db.define('user', {
     }
   },
   isAdmin: {
-    //NOTE: For the admin panel streth goal.
     type: Sequelize.BOOLEAN,
-    defaultValue: false
+    defaultValue: false,
+    allowNull: false
   },
   password: {
     type: Sequelize.STRING,
@@ -65,7 +65,7 @@ const User = db.define('user', {
   imageUrl: {
     type: Sequelize.STRING,
     defaultValue:
-      'https://s3.amazonaws.com/purple-pirate-pompadours/default-user.svg'
+      'https://s3.amazonaws.com/purple-pirate-pompadours/icons/user-avatar.svg'
   }
 })
 

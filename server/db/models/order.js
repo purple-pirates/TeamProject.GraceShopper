@@ -11,17 +11,9 @@ const Order = db.define('order', {
     defaultValue: 'Pending',
     allowNull: false
   },
-  orderDate: {
+  dateOrdered: {
     type: Sequelize.DATE,
     allowNull: false
-  },
-  total: {
-    type: Sequelize.INTEGER,
-    defaultValue: 0,
-    allowNull: false,
-    get() {
-      return this.priceInDollars(this.getDataValue('total'))
-    }
   },
   recipientName: {
     // NOTE: Should default to user's full name.
@@ -60,6 +52,14 @@ const Order = db.define('order', {
   },
   specialInstructions: {
     type: Sequelize.TEXT
+  },
+  total: {
+    type: Sequelize.INTEGER,
+    defaultValue: 0,
+    allowNull: false,
+    get() {
+      return this.priceInDollars(this.getDataValue('total'))
+    }
   }
 })
 

@@ -8,83 +8,124 @@ const users = [
     firstName: 'Alice',
     lastName: 'Wonderland',
     email: 'alice@email.com',
-    password: 'password'
+    isAdmin: false,
+    password: 'password',
+    street: '5 Street St.',
+    city: 'Newark',
+    state: 'New Jersey',
+    zip: '01234-5678',
+    phone: '1-222-555-6767'
   },
   {
-    firstName: 'Marshall',
-    lastName: 'Mathers',
-    email: 'marshall@email.com',
-    password: 'password'
+    firstName: 'Brendon',
+    lastName: 'Brennan',
+    email: 'bbrennan@email.com',
+    isAdmin: false,
+    password: 'password',
+    street: '10 Place Pl.',
+    city: 'New York',
+    state: 'NY',
+    zip: '11111-0000',
+    phone: '1-222-555-2323'
   },
   {
     firstName: 'Steve',
     lastName: 'Nojob',
-    email: 'steve@email.com',
-    password: 'password'
+    email: 'iDied@email.com',
+    isAdmin: false,
+    password: 'password',
+    street: '20 Avenue Ave.',
+    city: 'New York',
+    state: 'NY',
+    zip: '11111-1111',
+    phone: '1-222-555-6767'
   },
   {
-    firstName: 'Kanye',
-    lastName: 'East',
-    email: 'kanye@email.com',
-    phone: '1999999999',
-    password: 'password'
+    firstName: 'Plissken',
+    lastName: 'MacReady',
+    email: 'plissken.macready@gmail.com',
+    isAdmin: false,
+    password: 'P1155k3nM4cr34dy',
+    street: 'All Streets',
+    city: 'Reality',
+    state: 'NO',
+    zip: '00000-0000',
+    phone: '1-222-555-6767'
   },
   {
-    firstName: 'Lady',
-    lastName: 'Haha',
-    email: 'lady@email.com',
-    phone: '1234567890',
-    password: 'password'
+    firstName: 'Gregory',
+    lastName: 'Ardison-Gardner',
+    email: 'greg.ardison.gardner@gmail.com',
+    isAdmin: true,
+    password: 'L3f7H4nd0fD4rkn355',
+    street: '107 Prospect Avenue',
+    city: 'Lynbrook',
+    state: 'NY',
+    zip: '11563',
+    phone: '1-516-947-4347'
   },
   {
-    firstName: 'Buy-Ny',
+    firstName: 'Buy-ny',
     lastName: 'The-Stuff-Guy',
-    email: 'buyny@email.com',
-    password: 'password'
+    email: 'buy-ny@email.com',
+    isAdmin: false,
+    password: 'password',
+    street: '1 Road Rd.',
+    city: 'New York',
+    state: 'NY',
+    zip: '11122-2232',
+    phone: '1-222-555-0009'
   }
 ]
 
 const products = [
   {
-    name: 'The Black Hoodie',
-    price: 4495,
-    description: 'This is a black hoodie. The best black hoodie ever created.',
-    size: 'L',
-    merchant: 'misfit merch',
-    quantity: 100
-  },
-  {
-    name: 'The Grey Hoodie',
-    price: 4095,
-    description: 'This is a grey hoodie. The best grey hoodie ever created.',
-    size: 'M',
-    merchant: 'misfit merch',
-    quantity: 100
-  },
-  {
-    name: 'The Burgundy Hoodie',
-    price: 4295,
+    name: 'The Original',
+    price: 1999,
+    imageUrl:
+      'https://s3.amazonaws.com/purple-pirate-pompadours/Hoodies/BlackHoodie.jpg',
     description:
-      'This is a burgundy hoodie. The best burgundy hoodie ever created.',
-    size: 'XL',
-    merchant: 'misfit merch',
-    quantity: 100
+      "You can have this hoodie in any color you'd like as long as long it's black."
   },
   {
-    name: 'The Red Hoodie',
-    price: 3495,
-    description: 'This is a red hoodie. The best red hoodie ever created.',
-    size: 'XXL',
-    merchant: 'misfit merch',
-    quantity: 100
+    name: 'The Borealis',
+    price: 3999,
+    imageUrl:
+      'https://s3.amazonaws.com/purple-pirate-pompadours/Hoodies/Borealis.jpg',
+    description:
+      'Aurora borealis - at this time of year, in this part of the country, localized entirely upon your hoodie.'
   },
   {
-    name: 'The Navy Hoodie',
-    price: 3495,
-    description: 'This is a navy hoodie. The best navy hoodie ever created.',
-    size: 'S',
-    merchant: 'misfit merch',
-    quantity: 100
+    name: 'The Starry Night',
+    price: 5999,
+    imageUrl:
+      'https://s3.amazonaws.com/purple-pirate-pompadours/Hoodies/StarryNight.jpg',
+    description:
+      "Every child is an artist. The problem is that they don't have this hoodie."
+  },
+  {
+    name: 'The Haunted',
+    price: 2999,
+    imageUrl:
+      'https://s3.amazonaws.com/purple-pirate-pompadours/Hoodies/Haunted.jpg',
+    description:
+      "If there's something weird and it don't look good, is this what you're gonna wear?"
+  },
+  {
+    name: 'The Night in the Woods',
+    price: 2999,
+    imageUrl:
+      'https://s3.amazonaws.com/purple-pirate-pompadours/Hoodies/NightSky.jpg',
+    description:
+      'Let me speak wisdom to you: we begin and we end, at night, in the woods wearing this hoodie.'
+  },
+  {
+    name: 'The Floral',
+    price: 2999,
+    imageUrl:
+      'https://s3.amazonaws.com/purple-pirate-pompadours/Hoodies/Floral.jpg',
+    description:
+      'This hoodie is like a beautiful flower which I may not touch, but whose fragrance makes the garden a place of delight just the same.'
   }
 ]
 

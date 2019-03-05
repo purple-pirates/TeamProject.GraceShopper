@@ -13,8 +13,8 @@ const OrderedItem = db.define('ordereditem', {
       min: 1
     }
   },
-  price: {
-    type: Sequelize.INTEGER,
+  subTotal: {
+    type: Sequelize.INTEGER, // Stored as cents.
     defaultValue: 0,
     allowNull: false,
     validate: {
