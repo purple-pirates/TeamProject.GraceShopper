@@ -5,76 +5,56 @@ const db = require('../db')
 
 // PRODUCTS MODEL
 
-const Product = db.define(
-  'product',
-  {
-    name: {
-      type: Sequelize.STRING,
-      allowNull: false
-    },
-    price: {
-      type: Sequelize.INTEGER, // Stored in cents.
-      allowNull: false,
-      get() {
-        return this.priceInDollars(this.getDataValue('price'))
-      }
-    },
-    imageUrl: {
-      type: Sequelize.STRING,
-      defaultValue:
-        'https://s3.amazonaws.com/purple-pirate-pompadours/Hoodies/BlackHoodie.jpg',
-      validate: {
-        isUrl: true
-      }
-    },
-    tags: {
-      type: Sequelize.ARRAY(Sequelize.STRING)
-    },
-    description: {
-      type: Sequelize.TEXT,
-      defaultValue: 'More information has not been provided by the vendor.',
-      validate: {
-        notEmpty: true
-      }
-    },
-    size: {
-      // NOTE: Consider that we'd have specific stock for specific sizes; may need an associated table.
-      type: Sequelize.ENUM('S', 'M', 'L', 'XL', 'XXL'),
-      defaultValue: 'M'
-    },
-    merchant: {
-      type: Sequelize.STRING,
-      default: 'Misfit'
-    },
-    stock: {
-      // NOTE: Consider a way to reserve an item for someone whose cart is not submitted. Reservation?
-      type: Sequelize.INTEGER,
-      allowNull: false,
-      defaultValue: 0,
-      validate: {
-        min: 0
-      }
-    },
-    totalStars: {
-      //NOTE: Total ratings for each star, i.e. 1 star, 2 stars, 3 stars, etc.
-      type: Sequelize.ARRAY(Sequelize.INTEGER),
-      defaultValue: [0, 0, 0, 0, 0]
+const Product = db.define('product', {
+  name: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+  price: {
+    type: Sequelize.INTEGER, // Stored in cents.
+    allowNull: false,
+    get() {
+      return this.priceInDollars(this.getDataValue('price'))
     }
   },
-  {
-    defaultScope: {
-      attributes: [
-        'id',
-        'name',
-        'price',
-        'description',
-        'imageUrl',
-        'size',
-        'merchant'
-      ]
+  imageUrl: {
+    type: Sequelize.STRING,
+    defaultValue:
+      'https://s3.amazonaws.com/purple-pirate-pompadours/Hoodies/BlackHoodie.jpg',
+    validate: {
+      isUrl: true
     }
+  },
+  tags: {
+    type: Sequelize.ARRAY(Sequelize.STRING)
+  },
+  description: {
+    type: Sequelize.TEXT,
+    defaultValue: 'More information has not been provided by the vendor.',
+    validate: {
+      notEmpty: true
+    }
+  },
+  size: {
+    // NOTE: Consider that we'd have specific stock for specific sizes; may need an associated table.
+    type: Sequelize.ENUM('S', 'M', 'L', 'XL', 'XXL'),
+    defaultValue: 'M'
+  },
+  stock: {
+    // NOTE: Consider a way to reserve an item for someone whose cart is not submitted. Reservation?
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    defaultValue: 0,
+    validate: {
+      min: 0
+    }
+  },
+  totalStars: {
+    //NOTE: Total ratings for each star, i.e. 1 star, 2 stars, 3 stars, etc.
+    type: Sequelize.ARRAY(Sequelize.INTEGER),
+    defaultValue: [0, 0, 0, 0, 0]
   }
-)
+})
 
 //INSTANCE METHODS
 
@@ -93,7 +73,7 @@ Product.averageRating = function() {
 // PROTOTYPE METHODS
 
 Product.prototype.priceInDollars = price => {
-  return `$${price / 100}`
+  return '$' + price / 100
 }
 
 Product.prototype.decrementStock = function(num) {

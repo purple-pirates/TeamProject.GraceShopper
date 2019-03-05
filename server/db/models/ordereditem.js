@@ -3,9 +3,9 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-// CART MODEL
+// ORDERITEMS MODEL
 
-const Cart = db.define('cart', {
+const OrderedItem = db.define('ordereditem', {
   quantity: {
     type: Sequelize.INTEGER,
     defaultValue: 1,
@@ -28,14 +28,10 @@ const Cart = db.define('cart', {
 
 // PROTOTYPE METHODS
 
-Cart.prototype.priceInDollars = price => {
-  return `$${price / 100}`
+OrderedItem.prototype.priceInDollars = price => {
+  return '$' + price / 100
 }
-
-/*
-I think there is a better way to get the total, by making use of instance methods and involving the cart through table.
-*/
 
 // EXPORT
 
-module.exports = Cart
+module.exports = OrderedItem

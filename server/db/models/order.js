@@ -6,19 +6,8 @@ const db = require('../db')
 
 const Order = db.define('order', {
   status: {
-    type: Sequelize.ENUM(
-      'Pending',
-      'Cancelled',
-      'Processing',
-      'Shipping',
-      'Completed'
-    ),
+    type: Sequelize.STRING,
     defaultValue: 'Pending',
-    allowNull: false
-  },
-  items: {
-    //NOTE: Created as an array for now, would consider different approach later.
-    type: Sequelize.ARRAY(Sequelize.JSON),
     allowNull: false
   },
   orderDate: {
@@ -26,15 +15,11 @@ const Order = db.define('order', {
     allowNull: false
   },
   total: {
-    type: Sequelize.VIRTUAL,
-    get: function() {
-      if (this.items && this.items.length)
-        return this.items
-          .map(item => item.quantity * item.price)
-          .reduce((a, b) => a + b, 0)
-      else {
-        return 0
-      }
+    type: Sequelize.INTEGER,
+    defaultValue: 0,
+    allowNull: false,
+    get() {
+      return this.priceInDollars(this.getDataValue('total'))
     }
   },
   recipientName: {
@@ -66,8 +51,7 @@ const Order = db.define('order', {
     /*
       NOTE: Should default to user's phone, will always be the phone number of the customer making the purchase.
       */
-    type: Sequelize.STRING,
-    allowNull: false
+    type: Sequelize.STRING
   },
   gift: {
     type: Sequelize.BOOLEAN,
@@ -81,7 +65,7 @@ const Order = db.define('order', {
 // PROTOTYPE METHODS
 
 Order.prototype.priceInDollars = price => {
-  return `$${price / 100}`
+  return '$' + price / 100
 }
 
 // EXPORT
