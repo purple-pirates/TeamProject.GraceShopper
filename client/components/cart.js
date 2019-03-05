@@ -2,24 +2,11 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import {fetchCartItems, removeCartItem, putCartItem} from '../store'
-// import {Product} from '../../server/db/models/product'
 
 export class Cart extends Component {
   componentDidMount() {
     this.props.fetchCartItems()
   }
-
-  /*calculate() {
-    // get all cart items
-    const cart = this.props.fetchCartItems();
-    let total = 0;
-    cart.forEach(async (cartItem) => {
-      const current = await Product.findOne({ where: { id: cartItem.productId }})
-      let add = current.price * cartItem.quantity
-      total +=  add
-    })
-    return total
-  }*/
 
   render() {
     return (
@@ -27,7 +14,7 @@ export class Cart extends Component {
         {this.props.cartItems.length < 1 ? (
           <h1>Your cart is empty</h1>
         ) : (
-          this.props.cartItems.map((item, idx) => {
+          this.props.cartItems.map(item => {
             return (
               <div key={item.name}>
                 <span>

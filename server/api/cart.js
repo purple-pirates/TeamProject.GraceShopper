@@ -163,7 +163,6 @@ router.post('/charge', async (req, res) => {
       source: req.body
     })
     res.json({status})
-    console.log('STATUS IS: ', status)
   } catch (err) {
     res.status(500).end()
   }
