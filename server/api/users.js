@@ -1,10 +1,10 @@
 const router = require('express').Router()
 const {User, Order, Product} = require('../db/models')
-const {isLoggedIn, isAdmin} = require('./security')
+const {isLoggedIn, isSelfOrAdmin, isAdmin} = require('./security')
 
 // GET Route for /api/users
 
-router.get('/', async (req, res, next) => {
+router.get('/', isAdmin, async (req, res, next) => {
   try {
     const users = await User.findAll()
     res.json(users)
@@ -15,7 +15,7 @@ router.get('/', async (req, res, next) => {
 
 // GET Route for /api/users/:userId
 
-router.get('/:userId', async (req, res, next) => {
+router.get('/:userId', isLoggedIn, async (req, res, next) => {
   try {
     const users = await User.findById(req.params.userId)
     res.json(users)
@@ -26,7 +26,7 @@ router.get('/:userId', async (req, res, next) => {
 
 // GET Route for /api/users/orders
 
-router.get('/account/orders', (req, res, next) => {
+router.get('/account/orders', isSelfOrAdmin, (req, res, next) => {
   User.findById(req.user.id)
     .then(user => {
       return Order.findAll({
@@ -47,7 +47,7 @@ router.get('/account/orders', (req, res, next) => {
 })
 
 // PUT Route for /api/users/:userId
-router.put('/:userId', (req, res, next) => {
+router.put('/:userId', isSelfOrAdmin, (req, res, next) => {
   const userId = req.params.userId
   const updateUser = req.body
   User.update(
@@ -81,7 +81,7 @@ router.put('/:userId', (req, res, next) => {
 })
 
 // DELETE Route for /api/users/:userId
-router.delete('/:userId', (req, res, next) => {
+router.delete('/:userId', isSelfOrAdmin, (req, res, next) => {
   const userId = this.params.userId
   User.destroy({
     where: {id: userId}

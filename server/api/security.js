@@ -8,7 +8,13 @@ function isAdmin(req, res, next) {
   res.redirect('/')
 }
 
+function isSelfOrAdmin(req, res, next) {
+  if (req.params.id === req.user.id || req.user.isAdmin) return next()
+  res.redirect('/')
+}
+
 module.exports = {
   isLoggedIn,
-  isAdmin
+  isAdmin,
+  isSelfOrAdmin
 }
