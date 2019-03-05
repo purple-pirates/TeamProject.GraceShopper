@@ -4,13 +4,27 @@ const db = require('../db')
 
 // REVIEWS MODEL
 
-const Reviews = db.define('review', {
-  review: {
+const Review = db.define('reviews', {
+  title: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
+  },
+  text: {
     type: Sequelize.TEXT,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      validateLength: function(text) {
+        if (text.length < 20) {
+          throw new Error('Your review is not long enough.')
+        }
+      }
+    }
   }
 })
 
 // EXPORT
 
-module.exports = Reviews
+module.exports = Review

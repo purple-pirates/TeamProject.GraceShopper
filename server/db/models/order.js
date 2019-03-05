@@ -23,7 +23,6 @@ const Order = db.define('order', {
   },
   orderDate: {
     type: Sequelize.DATE,
-    noUpdate: true,
     allowNull: false
   },
   total: {
