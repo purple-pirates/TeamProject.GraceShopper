@@ -1,6 +1,6 @@
 /* eslint-disable complexity */
 const router = require('express').Router()
-const stripe = require('stripe')('sk_test_BD8d7i7TOX1lEatol10oRtGi')
+const stripe = require('stripe')(process.env.STRIPE_KEY)
 
 const {Cart, Product} = require('../db/models')
 

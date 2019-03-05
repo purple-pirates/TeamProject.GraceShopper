@@ -20,15 +20,16 @@ export class Cart extends Component {
     })
     return total
   }*/
+
   render() {
     return (
       <div>
         {this.props.cartItems.length < 1 ? (
           <h1>Your cart is empty</h1>
         ) : (
-          this.props.cartItems.map(item => {
+          this.props.cartItems.map((item, idx) => {
             return (
-              <div key={item.id}>
+              <div key={item.name}>
                 <span>
                   <b>Name: </b>
                   {item.name}
