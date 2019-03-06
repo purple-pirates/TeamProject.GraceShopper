@@ -54,6 +54,7 @@ router.delete('/deleteCart', async (req, res, next) => {
       console.log(req.session.cartItems)
       req.session.cartItems = []
     }
+    res.send()
   } catch (e) {
     next(e)
   }
