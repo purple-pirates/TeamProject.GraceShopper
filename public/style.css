@@ -46,6 +46,23 @@ nav a:hover {
   width: 225x;
 }
 
+.footer {
+  display: flex;
+  background-color: #ce1b1b;
+  margin: 0;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  flex-grow: 1;
+  min-height: 25vh;
+  margin-top: 5%;
+}
+
+.footer h1 {
+  font-size: 1em;
+  color: #f6f6f6;
+}
+
 form div {
   margin: 1em;
   display: inline-block;
