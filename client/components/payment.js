@@ -19,6 +19,11 @@ class CheckoutForm extends React.Component {
     })
     if (response.ok) {
       this.setState({complete: true})
+      await fetch('/api/cart/deleteCart', {
+        method: 'DELETE',
+        headers: {'Content-Type': 'text/plain'},
+        body: token.id
+      })
     }
   }
 
