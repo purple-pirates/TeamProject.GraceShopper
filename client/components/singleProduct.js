@@ -41,6 +41,11 @@ class SelectedProduct extends Component {
     return (
       <div id="single_product_container">
         <div id="single_product_subcontainer">
+          <img
+            src={product.imageUrl}
+            alt="product image"
+            id="single_product_img"
+          />
           <div id="single_product_textcontainer">
             <h1>{product.name}</h1>
             <h3>Price: {product.price}</h3>
@@ -84,11 +89,6 @@ class SelectedProduct extends Component {
               </span>
             </form>
           </div>
-          <img
-            src={product.imageUrl}
-            alt="product image"
-            id="single_product_img"
-          />
         </div>
       </div>
     )
