@@ -31,9 +31,32 @@ router.post('/charge', async (req, res) => {
       description: 'Hoodie',
       source: req.body
     })
+
     res.json({status})
   } catch (err) {
     res.status(500).end()
+  }
+})
+
+router.delete('/deleteCart', async (req, res, next) => {
+  const user = req.user
+  console.log(req.user)
+  try {
+    if (user !== undefined) {
+      console.log('is user', req.user)
+      await Cart.destroy({
+        where: {
+          userId: req.user.id
+        }
+      })
+    } else {
+      console.log('we in here', req.user)
+      console.log(req.session.cartItems)
+      req.session.cartItems = []
+    }
+    res.send()
+  } catch (e) {
+    next(e)
   }
 })
 
@@ -67,13 +90,11 @@ router.post('/:productId', async (req, res, next) => {
       res.status(204).send(req.session.cartItems)
     } else {
       const userId = req.session.passport.user
-      console.log('THIS IS BEFORE THE CART ITEM &&&&&&&&&')
       const cartItem = await Cart.findAll({
         where: {
           userId
         }
       })
-      console.log('Cart Item: ', cartItem)
       let newQuantity
       let body = {
         size: req.body.size,
