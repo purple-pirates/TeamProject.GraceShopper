@@ -6,6 +6,11 @@ import {logout} from '../store'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
   <div>
+    <img
+      src="https://s3.amazonaws.com/purple-pirate-pompadours/misfitlogo.svg"
+      alt="misfitMERCH logo"
+      id="logo"
+    />
     <nav>
       <Link to="/home">
         <img
