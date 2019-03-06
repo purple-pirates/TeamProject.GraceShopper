@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const {User, Order, Product} = require('../db/models')
-const {isLoggedIn, isSelfOrAdmin, isAdmin} = require('./security')
+const {isSelfOrAdmin, isAdmin} = require('./security')
 
 // GET Route for /api/users
 

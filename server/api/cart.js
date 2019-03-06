@@ -2,7 +2,7 @@
 const router = require('express').Router()
 const stripe = require('stripe')(process.env.STRIPE_KEY)
 
-const {Cart, Product} = require('../db/models')
+const {Cart} = require('../db/models')
 
 // GET Route for /api/cart
 router.get('/', async (req, res, next) => {
