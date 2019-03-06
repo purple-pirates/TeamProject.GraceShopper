@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const {Product} = require('../db/models')
-const {isLoggedIn, isAdmin} = require('./security')
+const {isAdmin} = require('./security')
 
 // GET Route for /api/products
 

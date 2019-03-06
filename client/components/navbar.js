@@ -6,15 +6,15 @@ import {logout} from '../store'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
   <div>
-    <img
-      src="https://s3.amazonaws.com/purple-pirate-pompadours/misfitLogo.gif"
-      alt="misfitMERCH logo"
-      id="logo"
-    />
     <nav>
-      <div>
-        {/* The navbar will show these links after you log in */}
-        <Link to="/home">Home</Link>
+      <Link to="/home">
+        <img
+          src="https://s3.amazonaws.com/purple-pirate-pompadours/misfitlogo.png"
+          alt="misfit logo"
+          id="logo"
+        />
+      </Link>
+      <div className="navbar-links">
         <Link to="/products">Products</Link>
         <Link to="/cart">Cart</Link>
         {isLoggedIn ? (
@@ -33,7 +33,6 @@ const Navbar = ({handleClick, isLoggedIn}) => (
         )}
       </div>
     </nav>
-    <hr />
   </div>
 )
 
