@@ -4,7 +4,7 @@ const {isAdmin} = require('./security')
 
 // GET Route for /api/products
 
-router.get('/', isAdmin, async (req, res, next) => {
+router.get('/', async (req, res, next) => {
   try {
     const products = await Product.findAll()
     res.json(products)
