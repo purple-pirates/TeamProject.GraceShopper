@@ -15,7 +15,7 @@ router.get('/', isAdmin, async (req, res, next) => {
 
 // GET Route for /api/users/:userId
 
-router.get('/:userId', isLoggedIn, async (req, res, next) => {
+router.get('/:userId', isAdmin, async (req, res, next) => {
   try {
     const users = await User.findById(req.params.userId)
     res.json(users)

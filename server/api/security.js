@@ -1,11 +1,11 @@
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) return next()
-  res.redirect('/')
+  res.redirect('/login')
 }
 
 function isAdmin(req, res, next) {
   if (req.user.isAdmin) return next()
-  res.redirect('/')
+  res.redirect('/products')
 }
 
 function isSelfOrAdmin(req, res, next) {

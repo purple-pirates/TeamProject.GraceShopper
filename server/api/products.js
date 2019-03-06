@@ -1,10 +1,10 @@
 const router = require('express').Router()
 const {Product} = require('../db/models')
-const {isLoggedIn, isAdmin} = require('./security')
+const {isAdmin} = require('./security')
 
 // GET Route for /api/products
 
-router.get('/', async (req, res, next) => {
+router.get('/', isAdmin, async (req, res, next) => {
   try {
     const products = await Product.findAll()
     res.json(products)
